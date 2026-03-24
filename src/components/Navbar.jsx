@@ -389,9 +389,9 @@ const Navbar = () => {
                             {/* Mobile Footer Links */}
                             <div className="mt-8 pt-6 border-t border-gray-200">
                                 <div className="flex justify-center gap-6 text-sm text-gray-500">
-                                    <a href="#" className="hover:text-red-600 transition-colors">Terms</a>
-                                    <a href="#" className="hover:text-red-600 transition-colors">Privacy</a>
-                                    <a href="#" className="hover:text-red-600 transition-colors">Help</a>
+                                    <a href="/" className="hover:text-red-600 transition-colors">Terms</a>
+                                    <a href="/" className="hover:text-red-600 transition-colors">Privacy</a>
+                                    <a href="/" className="hover:text-red-600 transition-colors">Help</a>
                                 </div>
                             </div>
                         </div>

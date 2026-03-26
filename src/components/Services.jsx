@@ -13,7 +13,7 @@ const SERVICES = [
       "Scalable and secure architecture designed to grow with your business needs.",
       "Clean, maintainable code with best practices and thorough testing for reliable performance."
     ],
-    image: "/softdev.jpg"
+    image: "/assets/softdev.jpg"
   },
   {
     title: "Web & PWA Engineering",
@@ -22,7 +22,7 @@ const SERVICES = [
       "Responsive, SEO-friendly web applications with a seamless user experience.",
       "Cross-platform solutions that reduce development cost and time."
     ],
-    image: "/webdev.jpg"
+    image: "/assets/webdev.jpg"
   },
   {
     title: "Mobile App Development",
@@ -31,7 +31,7 @@ const SERVICES = [
       "Intuitive UI/UX with smooth performance and engaging user experiences.",
       "Integration with device features like camera, GPS, and push notifications."
     ],
-    image: "/mobdev.jpg"
+    image: "/assets/mobdev.jpg"
   },
   {
     title: "API & Systems Integration",
@@ -40,7 +40,7 @@ const SERVICES = [
       "RESTful and GraphQL APIs optimized for performance and scalability.",
       "Efficient data synchronization across your business systems and platforms."
     ],
-    image: "/api.jpg"
+    image: "/assets/api.jpg"
   },
   {
     title: "AI & Machine Learning",
@@ -49,7 +49,7 @@ const SERVICES = [
       "Custom machine learning models tailored to your business requirements.",
       "Smart data analysis, content generation, and workflow automation."
     ],
-    image: "/aiml.jpg"
+    image: "/assets/aiml.jpg"
   },
   {
     title: "Cloud Architecture",
@@ -58,7 +58,7 @@ const SERVICES = [
       "High-availability infrastructure with secure and cost-optimized deployments.",
       "Infrastructure as code for reliable and consistent environments."
     ],
-    image: "/cloud.jpg"
+    image: "/assets/cloud.jpg"
   },
   {
     title: "DevOps & Automation",
@@ -67,7 +67,7 @@ const SERVICES = [
       "Continuous integration, testing, and monitoring for high-quality delivery.",
       "Optimized workflows that improve team productivity and system reliability."
     ],
-    image: "/devops.jpg"
+    image: "/assets/devops.jpg"
   },
   {
     title: "UI/UX Design",
@@ -76,7 +76,7 @@ const SERVICES = [
       "User-centered design approach backed by research and usability testing.",
       "Interactive prototypes and design systems created in Figma."
     ],
-    image: "/uxui.jpg"
+    image: "/assets/uxui.jpg"
   },
   {
     title: "E-Commerce Solutions",
@@ -85,7 +85,7 @@ const SERVICES = [
       "Advanced features like inventory management, order tracking, and analytics.",
       "Optimized for conversions, speed, and mobile-first shopping experiences."
     ],
-    image: "/ecommerce.jpg"
+    image: "/assets/ecommerce.jpg"
   },
   {
     title: "Database Architecture",
@@ -94,7 +94,7 @@ const SERVICES = [
       "SQL and NoSQL solutions tailored to your application needs.",
       "Data migration, optimization, and ongoing database management services."
     ],
-    image: "/database.jpg"
+    image: "/assets/database.jpg"
   }
 ];
 

@@ -1,488 +1,785 @@
-import React, { useState, useEffect } from 'react';
-import {
-    FaCar,
-    FaShieldAlt,
-    FaArrowRight,
-    FaDownload,
-    FaDollarSign,
-    FaUsers,
-    FaEnvelope,
-    FaChevronLeft,
-    FaTimes,
-    FaBars,
-    FaChevronRight,
-    FaCity,
-    FaTruck,
-    FaBox,
-    FaHandsHelping,
-    FaUserShield,
-    FaBuilding,
-    FaBriefcase,
-    FaRocket,
-    FaPhone,
-    FaFileContract
-} from 'react-icons/fa';
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import gsap from "gsap";
 
 const Navbar = () => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const [activeDropdown, setActiveDropdown] = useState(null);
-    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-    const [contentLoaded, setContentLoaded] = useState(false);
-    const [mobileSubmenu, setMobileSubmenu] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileExpanded, setMobileExpanded] = useState({});
+  const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-    const navLinks = [
-        {
-            name: 'Fair services',
-            href: '/fair-services',
-            largeIcon: FaCar,
-            hasDropdown: true,
-            sublinks: [
-                { name: 'City rides', href: '/city-rides', icon: FaCity },
-                { name: 'City to City', href: '/intercity', icon: FaTruck },
-                { name: 'Delivery', href: '/delivery', icon: FaBox }
-            ]
-        },
-        {
-            name: 'Earn with inDrive',
-            href: '/earn',
-            largeIcon: FaDollarSign,
-            hasDropdown: true,
-            sublinks: [
-                { name: 'City rides', href: '/city-rides-driver', icon: FaCar },
-                { name: 'City to City', href: '/intercity-driver', icon: FaTruck },
-                { name: 'Courier delivery', href: '/courier', icon: FaBox },
-                { name: 'Freight delivery', href: '/freight', icon: FaTruck }
-            ],
-            exploreLink: { label: 'Explore all services', href: '/earn-services' }
-        },
-        {
-            name: 'Safety',
-            href: '/safety',
-            largeIcon: FaShieldAlt,
-            hasDropdown: true,
-            sublinks: [
-                { name: 'Safety pact', href: '/safety-pact', icon: FaFileContract },
-                { name: 'Passenger safety', href: '/passenger-safety', icon: FaUserShield },
-                { name: 'Driver safety', href: '/driver-safety', icon: FaHandsHelping }
-            ]
-        },
-        {
-            name: 'About Us',
-            href: '/about',
-            largeIcon: FaUsers,
-            hasDropdown: true,
-            sublinks: [
-                { name: 'Company', href: '/company', icon: FaBuilding },
-                { name: 'Careers', href: '/careers', icon: FaBriefcase },
-                { name: 'New Ventures', href: '/ventures', icon: FaRocket },
-                { name: 'Contacts', href: '/contacts', icon: FaPhone },
-            ]
-        },
-        {
-            name: 'Contact Us',
-            href: '/contact',
-            largeIcon: FaEnvelope,
-            hasDropdown: false,
-            sublinks: []
+  // Get current pathname for active link detection
+  const location = useLocation();
+  const pathname = location.pathname;
+  const navigate = useNavigate();
+
+  // Refs for GSAP animations
+  const navbarRef = useRef(null);
+  const navLinksRef = useRef([]);
+  const ctaButtonRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const dropdownRefs = useRef({});
+  const underlineRefs = useRef({});
+  const mobileDropdownRefs = useRef({});
+  const logoRef = useRef(null);
+  const accentLineRef = useRef(null);
+
+  // Timeout ref for hover delay
+  const hoverTimeoutRef = useRef(null);
+
+  // Check if a link is active
+  const isActive = (href) => {
+    if (href === '/') {
+      return pathname === href;
+    }
+    return pathname?.startsWith(href);
+  };
+
+  // Function to handle navigation with scrolling to specific service
+  const handleServiceNavigation = (e, href, serviceTitle) => {
+    e.preventDefault();
+
+    // Close mobile menu if open
+    setIsOpen(false);
+
+    // Close any open dropdowns
+    setActiveDropdown(null);
+
+    // Create a URL-friendly ID from the service title
+    const serviceId = serviceTitle.toLowerCase()
+      .replace(/[&]/g, 'and')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-');
+
+    // If we're already on the services page, just scroll
+    if (pathname === '/services') {
+
+      setTimeout(() => {
+        scrollToService(serviceId);
+      }, 100);
+    } else {
+
+      navigate(`/services#${serviceId}`);
+    }
+  };
+
+  // Function to scroll to a specific service
+  const scrollToService = (serviceId) => {
+
+    const element = document.getElementById(serviceId);
+    if (element) {
+
+      const yOffset = -100; // Offset for fixed navbar
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({ top: y, behavior: 'smooth' });
+
+      // Highlight the element temporarily
+      element.style.transition = 'all 0.3s ease';
+      element.style.boxShadow = '0 0 0 2px rgba(0,0,0,0.1), 0 0 0 4px rgba(59,130,246,0.5)';
+      setTimeout(() => {
+        element.style.boxShadow = '';
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        const retryElement = document.getElementById(serviceId);
+        if (retryElement) {
+          const yOffset = -100;
+          const y = retryElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+
+          retryElement.style.transition = 'all 0.3s ease';
+          retryElement.style.boxShadow = '0 0 0 2px rgba(0,0,0,0.1), 0 0 0 4px rgba(59,130,246,0.5)';
+          setTimeout(() => {
+            retryElement.style.boxShadow = '';
+          }, 2000);
         }
-    ];
+      }, 500);
+    }
+  };
 
-    // Handle scroll effect
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  // Handle hash navigation on page load
+  useEffect(() => {
+    if (!mounted) return;
 
-    // Prevent body scroll when mobile menu is open
-    useEffect(() => {
-        if (isMobileMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-            setMobileSubmenu(null);
+    if (pathname === '/services' && window.location.hash) {
+      const serviceId = window.location.hash.replace('#', '');
+      setTimeout(() => {
+        scrollToService(serviceId);
+      }, 500);
+    }
+  }, [pathname, mounted]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Run animations after mounted
+  useEffect(() => {
+    if (!mounted) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
+
+      // Navbar slide down
+      if (navbarRef.current) {
+        tl.fromTo(navbarRef.current,
+          { y: -100, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.2, ease: "power4.out" }
+        );
+      }
+
+      // Accent line animation
+      if (accentLineRef.current) {
+        tl.fromTo(accentLineRef.current,
+          { scaleX: 0, transformOrigin: "left" },
+          { scaleX: 1, duration: 1.5, ease: "power4.out" },
+          "-=0.8"
+        );
+      }
+
+      // Logo fade in
+      if (logoRef.current) {
+        tl.fromTo(logoRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8, ease: "power2.out" },
+          "-=0.6"
+        );
+      }
+
+      // Nav links fade in one by one
+      const validNavLinks = navLinksRef.current.filter(el => el);
+      if (validNavLinks.length > 0) {
+        tl.fromTo(validNavLinks,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out"
+          },
+          "-=0.4"
+        );
+      }
+
+      // CTA button fade in
+      if (ctaButtonRef.current) {
+        tl.fromTo(ctaButtonRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6, ease: "power2.out" },
+          "-=0.2"
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, [mounted]);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+        if (navbarRef.current) {
+          gsap.to(navbarRef.current, {
+            backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 1)",
+            backdropFilter: isScrolled ? "blur(8px)" : "blur(0px)",
+            duration: 0.6,
+            ease: "power3.inOut"
+          });
         }
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, [isMobileMenuOpen]);
+      }
+    };
 
-    // Pre-load content when activeDropdown changes
-    useEffect(() => {
-        if (activeDropdown) {
-            setContentLoaded(true);
-            setIsDropdownVisible(true);
-        } else {
-            setContentLoaded(false);
-            setIsDropdownVisible(false);
-        }
-    }, [activeDropdown]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrolled]);
 
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (!e.target.closest('.dropdown-trigger') && !e.target.closest('.dropdown-content')) {
-                setActiveDropdown(null);
+  // Animate mobile menu
+  useEffect(() => {
+    if (isOpen && mobileMenuRef.current) {
+      gsap.fromTo(mobileMenuRef.current,
+        { y: -30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power4.out" }
+      );
+
+      if (mobileMenuRef.current.children.length > 0) {
+        gsap.fromTo(
+          mobileMenuRef.current.children,
+          { x: -30, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power3.out" }
+        );
+      }
+    }
+  }, [isOpen]);
+
+  // Animate desktop dropdown
+  useEffect(() => {
+    if (window.innerWidth >= 1024 && activeDropdown && dropdownRefs.current[activeDropdown]) {
+      const dropdown = dropdownRefs.current[activeDropdown];
+
+      gsap.fromTo(dropdown,
+        { y: -15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
+      );
+
+      const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
+      if (dropdownItems.length > 0) {
+        gsap.fromTo(
+          dropdownItems,
+          { y: -8, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4, stagger: 0.03, delay: 0.1, ease: "power2.out" }
+        );
+      }
+    }
+  }, [activeDropdown]);
+
+  // Animate mobile dropdown expand/collapse
+  useEffect(() => {
+    Object.keys(mobileExpanded).forEach((key) => {
+      const element = mobileDropdownRefs.current[key];
+      if (element) {
+        if (mobileExpanded[key]) {
+          element.style.height = 'auto';
+          const height = element.scrollHeight;
+          element.style.height = '0px';
+          element.offsetHeight;
+
+          gsap.to(element, {
+            height: height,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power3.inOut",
+            onComplete: () => {
+              element.style.height = 'auto';
             }
-        };
-        window.addEventListener('click', handleClickOutside);
-        return () => window.removeEventListener('click', handleClickOutside);
-    }, []);
+          });
+        } else {
+          const height = element.scrollHeight;
+          element.style.height = height + 'px';
+          element.offsetHeight;
 
-    // Handle mouse enter on dropdown trigger
-    const handleDropdownEnter = (linkName, hasDropdown) => {
-        if (!hasDropdown) {
-            setActiveDropdown(null);
-            return;
+          gsap.to(element, {
+            height: 0,
+            opacity: 0,
+            duration: 0.4,
+            ease: "power3.in"
+          });
         }
-        setActiveDropdown(linkName);
-    };
+      }
+    });
+  }, [mobileExpanded]);
 
-    // Handle mouse leave from nav container
-    const handleNavLeave = (e) => {
-        const relatedTarget = e.relatedTarget;
-        if (relatedTarget?.closest?.('.dropdown-content')) {
-            return;
+  // Animate underline on hover
+  const handleUnderlineHover = (key, isHovering) => {
+    if (underlineRefs.current[key]) {
+      gsap.to(underlineRefs.current[key], {
+        scaleX: isHovering ? 1 : 0,
+        duration: 0.5,
+        ease: "power3.out"
+      });
+    }
+  };
+
+  // Clear any existing hover timeout
+  const clearHoverTimeout = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+  };
+
+  // Handle mouse enter on nav item
+  const handleNavItemEnter = (title) => {
+    clearHoverTimeout();
+    if (window.innerWidth >= 1024) {
+      if (activeDropdown !== title) {
+        if (activeDropdown) {
+          handleUnderlineHover(`${activeDropdown}-desktop`, false);
         }
-        if (relatedTarget?.closest?.('.dropdown-trigger')) {
-            return;
+        setActiveDropdown(title);
+        handleUnderlineHover(`${title}-desktop`, true);
+      }
+    }
+  };
+
+  // Handle mouse leave from nav item
+  const handleNavItemLeave = () => {
+    clearHoverTimeout();
+    hoverTimeoutRef.current = setTimeout(() => {
+      if (window.innerWidth >= 1024 && activeDropdown) {
+        const dropdown = dropdownRefs.current[activeDropdown];
+        if (!dropdown || !dropdown.matches(':hover')) {
+          handleUnderlineHover(`${activeDropdown}-desktop`, false);
+          setActiveDropdown(null);
         }
-        setActiveDropdown(null);
-    };
+      }
+      hoverTimeoutRef.current = null;
+    }, 100);
+  };
 
-    // Open mobile submenu
-    const openMobileSubmenu = (link) => {
-        setMobileSubmenu(link);
-    };
+  // Handle mouse enter on dropdown
+  const handleDropdownEnter = (title) => {
+    clearHoverTimeout();
+    if (window.innerWidth >= 1024) {
+      if (activeDropdown !== title) {
+        if (activeDropdown) {
+          handleUnderlineHover(`${activeDropdown}-desktop`, false);
+        }
+        setActiveDropdown(title);
+        handleUnderlineHover(`${title}-desktop`, true);
+      }
+    }
+  };
 
-    // Close mobile submenu
-    const closeMobileSubmenu = () => {
-        setMobileSubmenu(null);
-    };
+  // Handle mouse leave from dropdown
+  const handleDropdownLeave = (title) => {
+    clearHoverTimeout();
+    hoverTimeoutRef.current = setTimeout(() => {
+      if (window.innerWidth >= 1024 && activeDropdown === title) {
+        const navItem = document.querySelector(`[data-navitem="${title}"]`);
+        if (!navItem || !navItem.matches(':hover')) {
+          handleUnderlineHover(`${title}-desktop`, false);
+          setActiveDropdown(null);
+        }
+      }
+      hoverTimeoutRef.current = null;
+    }, 100);
+  };
 
-    return (
-        <>
-            {/* Navbar - Hidden when mobile menu is open */}
-            <nav
-                className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
-                    ? 'bg-white/95 backdrop-blur-md py-3 shadow-md'
-                    : 'bg-white py-5'
-                    } ${isMobileMenuOpen ? 'lg:block hidden' : 'block'
-                    }`}
-            >
-                {/* Subtle border line */}
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+  // Handle click on dropdown link
+  const handleDropdownLinkClick = (e, href, serviceTitle) => {
+    handleUnderlineHover(`${activeDropdown}-desktop`, false);
+    setActiveDropdown(null);
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center">
-                        {/* Logo */}
-                        <a href="/" className="flex items-center gap-3 group">
-                            <span className="text-2xl font-bold text-red-600 tracking-wide">
-                                RIDEN
-                            </span>
-                        </a>
+    if (serviceTitle) {
+      handleServiceNavigation(e, href, serviceTitle);
+    }
+  };
 
-                        {/* Desktop Navigation Links */}
-                        <div
-                            className="hidden lg:flex items-center space-x-1"
-                            onMouseLeave={handleNavLeave}
-                        >
-                            {navLinks.map((link) => (
-                                <div
-                                    key={link.name}
-                                    className="relative dropdown-trigger"
-                                    onMouseEnter={() => handleDropdownEnter(link.name, link.hasDropdown)}
-                                >
-                                    <a
-                                        href={link.href}
-                                        className="relative px-5 py-2 group block"
-                                    >
-                                        <span className={`relative z-10 text-sm tracking-wide transition-colors duration-300 ${activeDropdown === link.name
-                                            ? 'text-red-600'
-                                            : 'text-gray-700 group-hover:text-red-600'
-                                            }`}>
-                                            {link.name}
-                                        </span>
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return null;
+  }
 
-                                        {/* Elegant underline */}
-                                        <span className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-red-600 transform -translate-x-1/2 transition-all duration-300 group-hover:w-4/5 ${activeDropdown === link.name ? 'w-4/5' : ''
-                                            }`}></span>
-                                    </a>
-                                </div>
-                            ))}
-                        </div>
+  const navItems = [
+    {
+      title: "Home",
+      href: "/",
+    },
+    {
+      title: "About",
+      href: "/about",
 
-                        {/* Get App Button - Desktop */}
-                        <div className="hidden lg:block">
-                            <button className="relative overflow-hidden group">
-                                <div className="relative px-6 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300">
-                                    <span className="text-sm tracking-wide flex items-center gap-2">
-                                        <FaDownload className="text-sm" />
-                                        Get the App
-                                    </span>
-                                </div>
-                            </button>
-                        </div>
+    },
+    {
+      title: "Services",
+      href: "/services",
+      dropdown: [
+        { title: "Software Development", href: "/services/software-development", category: "Development" },
+        { title: "Website Development", href: "/services/website-development", category: "Development" },
+        { title: "Mobile App Development", href: "/services/mobile-app-development", category: "Development" },
+        { title: "API & Systems Integration", href: "/services/api-systems-integration", category: "Development" },
+        { title: "AI & Machine Learning", href: "/services/ai-machine-learning", category: "Development" },
 
-                        {/* Mobile Menu Button */}
-                        <div className="lg:hidden flex items-center gap-3">
-                            <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300">
-                                <span className="text-sm font-light flex items-center gap-2">
-                                    <FaDownload />
-                                    <span className="hidden xs:inline">Get App</span>
-                                </span>
-                            </button>
+        { title: "Cloud Architecture", href: "/services/cloud-architecture", category: "Cloud & Infrastructure" },
+        { title: "DevOps & Automation", href: "/services/devops-automation", category: "Cloud & Infrastructure" },
+        { title: "Cloud Workspace Management", href: "/services/cloud-workspace-management", category: "Cloud & Infrastructure" },
+        { title: "Managed IT Services", href: "/services/managed-it-services", category: "Cloud & Infrastructure" },
+        { title: "Database Architecture", href: "/services/database-architecture", category: "Cloud & Infrastructure" },
 
-                            <button
-                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors duration-300"
-                            >
-                                {isMobileMenuOpen ? (
-                                    <FaTimes className="w-5 h-5 text-gray-800" />
-                                ) : (
-                                    <FaBars className="w-5 h-5 text-gray-800" />
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        { title: "UI/UX Design", href: "/services/ui-ux-design", category: "Design & Marketing" },
+        { title: "Social Media Management", href: "/services/social-media-management", category: "Design & Marketing" },
+        { title: "SEO & Growth Strategy", href: "/services/seo-growth-strategy", category: "Design & Marketing" },
+        { title: "Digital Marketing", href: "/services/digital-marketing", category: "Design & Marketing" },
+        { title: "Content Writing", href: "/services/content-writing", category: "Design & Marketing" },
 
-                {/* Desktop Dropdown - 70vh with rounded bottom */}
+        { title: "E-Commerce Solutions", href: "/services/ecommerce-solutions", category: "Business Solutions" },
+        { title: "Business Process Outsourcing", href: "/services/business-process-outsourcing", category: "Business Solutions" }
+      ]
+    },
+    {
+      title: "Industries",
+      href: "/industries",
+      dropdown: [
+        { title: "Ride Hailing", href: "/industries/ride-hailing" },
+        { title: "Healthcare & Life Sciences", href: "/industries/healthcare-life-sciences" },
+        { title: "Finance & Legal", href: "/industries/finance-legal" },
+        { title: "Retail & E-Commerce", href: "/industries/retail-ecommerce" },
+        { title: "Logistics & Supply Chain", href: "/industries/logistics-supply-chain" },
+        { title: "Education & EdTech", href: "/industries/education-edtech" },
+        { title: "Real Estate & Construction", href: "/industries/real-estate-construction" },
+        { title: "Hospitality & Tourism", href: "/industries/hospitality-tourism" },
+        { title: "Non-Profit & Government", href: "/industries/non-profit-government" }
+      ]
+    },
+    {
+      title: "Blogs",
+      href: "/blogs"
+    },
+    {
+      title: "Contact",
+      href: "/contact"
+    }
+  ];
+
+  // Group services by category
+  const groupedServices = navItems.find(item => item.title === "Services")?.dropdown.reduce((acc, service) => {
+    if (!acc[service.category]) {
+      acc[service.category] = [];
+    }
+    acc[service.category].push(service);
+    return acc;
+  }, {});
+
+  // Toggle mobile dropdown
+  const toggleMobileDropdown = (title) => {
+    setMobileExpanded(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
+  };
+
+  return (
+    <nav
+      ref={navbarRef}
+      className={`fixed w-full z-50 top-0 transition-shadow duration-700 ${scrolled ? "shadow-lg border-b border-gray-100" : "border-b border-gray-100"
+        }`}
+      style={{ backgroundColor: scrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 1)", backdropFilter: scrolled ? "blur(8px)" : "none" }}
+    >
+      {/* Premium accent line */}
+      <div
+        ref={accentLineRef}
+        className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900"
+        style={{ transform: "scaleX(0)", transformOrigin: "left" }}
+      ></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          {/* Logo with Marcellus font */}
+          <div className="flex-shrink-0" ref={logoRef} style={{ opacity: 0 }}>
+            <Link to="/" className="font-marcellus text-2xl tracking-wide text-gray-900">
+              Riden<span className="text-gray-500 ml-1 text-lg font-light">Tech</span>
+            </Link>
+          </div>
+
+          {/* Desktop Menu - Only visible on large screens (lg) */}
+          <div className="hidden lg:flex lg:items-center lg:space-x-1 gap-6">
+            {navItems.map((item, index) => {
+              const active = isActive(item.href);
+
+              return (
                 <div
-                    className="hidden lg:block absolute left-0 w-screen bg-white shadow-2xl overflow-hidden rounded-b-[40px] dropdown-content transition-all duration-500 ease-in-out"
-                    style={{
-                        top: '100%',
-                        height: isDropdownVisible && contentLoaded ? '70vh' : '0',
-                        opacity: isDropdownVisible && contentLoaded ? 1 : 0
-                    }}
-                    onMouseLeave={() => setActiveDropdown(null)}
+                  key={item.title}
+                  className="relative"
+                  ref={el => navLinksRef.current[index] = el}
+                  style={{ opacity: 0 }}
+                  data-navitem={item.title}
+                  onMouseEnter={() => handleNavItemEnter(item.title)}
+                  onMouseLeave={handleNavItemLeave}
                 >
-                    {/* Decorative top line - red to black gradient */}
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-black"></div>
+                  {item.dropdown ? (
+                    <div className="flex items-center">
+                      <Link
+                        to={item.href}
+                        className={`py-2 text-sm font-medium relative group font-manrope ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                          }`}
+                        onClick={() => handleDropdownLinkClick()}
+                      >
+                        {item.title}
+                      </Link>
+                      <button
+                        className="py-2"
+                        onMouseEnter={() => handleNavItemEnter(item.title)}
+                      >
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-300 ${active ? 'text-gray-900' : 'text-gray-600'
+                            } ${activeDropdown === item.title ? "rotate-180" : ""
+                            }`}
+                        />
+                      </button>
 
-                    {/* Scrollable content area */}
-                    <div className="h-full overflow-y-auto">
-                        {activeDropdown && navLinks.find(l => l.name === activeDropdown)?.hasDropdown && (
-                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
-                                {navLinks
-                                    .filter(link => link.name === activeDropdown)
-                                    .map(link => {
-                                        const LargeIcon = link.largeIcon;
-                                        return (
-                                            <div key={link.name} className="grid grid-cols-2 gap-16">
-                                                {/* Left Side - Title and Large Icon */}
-                                                <div className="space-y-6 relative">
-                                                    <h2 className="text-4xl font-bold text-gray-900 z-20">
-                                                        {link.name}
-                                                    </h2>
+                      {/* Hover underline effect - only shows on hover, not for active */}
+                      <span
+                        ref={el => underlineRefs.current[`${item.title}-desktop`] = el}
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0"
+                        style={{ display: active ? 'none' : 'block' }}
+                      ></span>
 
-                                                    <div className="text-center">
-                                                        <div className="text-[35rem] text-red-600/20 absolute -top-20 right-0 z-10">
-                                                            <LargeIcon />
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                {/* Right Side - Sublinks */}
-                                                <div className="space-y-8">
-                                                    {link.sublinks.length > 0 && (
-                                                        <div className="grid grid-cols-1 gap-y-5">
-                                                            {link.sublinks.map((sublink) => (
-                                                                <a
-                                                                    key={sublink.name}
-                                                                    href={sublink.href}
-                                                                    className="block p-4 rounded-xl hover:bg-gray-50 transition-all duration-300"
-                                                                >
-                                                                    <span className="text-black font-bold text-xl group-hover:text-red-600 transition-colors duration-300">
-                                                                        {sublink.name}
-                                                                    </span>
-                                                                </a>
-                                                            ))}
-                                                        </div>
-                                                    )}
-
-                                                    {/* Explore all services link */}
-                                                    {link.exploreLink && (
-                                                        <div className="pt-6 mt-4">
-                                                            <a
-                                                                href={link.exploreLink.href}
-                                                                className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium group"
-                                                            >
-                                                                {link.exploreLink.label}
-                                                                <FaArrowRight className="text-sm group-hover:translate-x-2 transition-transform duration-300" />
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                            </div>
-                        )}
+                      {/* Active indicator for items with dropdown */}
+                      {active && (
+                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900"></span>
+                      )}
                     </div>
-
-                    {/* Bottom fade for scroll indication */}
-                    <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-[40px]"></div>
-                </div>
-            </nav>
-
-            {/* Mobile Drawer */}
-            <div className={`lg:hidden fixed inset-0 z-50 bg-white transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-                }`}>
-                {/* Drawer Header */}
-                <div className="flex items-center justify-between px-6 py-5">
-                    <a href="/" className="flex items-center gap-3 group">
-                        <span className="text-2xl font-bold text-red-600 tracking-wide">
-                            RIDEN
-                        </span>
-                    </a>
-                    <button
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors duration-300"
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`relative px-0 py-2 text-sm font-medium group inline-block font-manrope ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                        }`}
+                      onMouseEnter={() => {
+                        if (window.innerWidth >= 1024 && !active) {
+                          handleUnderlineHover(`${item.title}-desktop`, true);
+                        }
+                      }}
+                      onMouseLeave={() => handleUnderlineHover(`${item.title}-desktop`, false)}
                     >
-                        <FaTimes className="w-5 h-5 text-gray-600" />
-                    </button>
-                </div>
+                      {item.title}
+                      {/* Hover underline effect */}
+                      <span
+                        ref={el => underlineRefs.current[`${item.title}-desktop`] = el}
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0"
+                      ></span>
+                      {/* Active indicator */}
+                      {active && (
+                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900"></span>
+                      )}
+                    </Link>
+                  )}
 
-                {/* Drawer Content */}
-                <div className="h-[calc(100vh-80px)] overflow-y-auto relative">
-                    {/* Main Menu */}
-                    <div className={`absolute inset-0 transition-transform duration-500 ease-in-out ${mobileSubmenu ? '-translate-x-full' : 'translate-x-0'
-                        }`}>
-                        <div className="px-6 py-8">
-                            {/* Mobile Navigation Links */}
-                            <div className="space-y-1">
-                                {navLinks.map((link) => (
-                                    <div key={link.name}>
-                                        {link.hasDropdown ? (
-                                            <button
-                                                onClick={() => openMobileSubmenu(link)}
-                                                className="w-full flex items-center justify-between px-4 py-4 text-gray-900 font-medium text-lg hover:bg-gray-50 rounded-xl transition-colors duration-300"
-                                            >
-                                                <span>{link.name}</span>
-                                                <FaChevronRight className="text-gray-400" />
-                                            </button>
-                                        ) : (
-                                            <a
-                                                href={link.href}
-                                                className="block px-4 py-4 text-gray-900 font-medium text-lg hover:bg-gray-50 rounded-xl transition-colors duration-300"
-                                                onClick={() => setIsMobileMenuOpen(false)}
-                                            >
-                                                {link.name}
-                                            </a>
+                  {/* Full Width Dropdown Menu - Only for desktop */}
+                  {item.dropdown && activeDropdown === item.title && window.innerWidth >= 1024 && (
+                    <div
+                      ref={el => dropdownRefs.current[item.title] = el}
+                      className="fixed left-0 right-0 top-20 w-screen bg-white border-t border-gray-100 shadow-xl z-50"
+                      style={{ left: 0, right: 0 }}
+                      onMouseEnter={() => handleDropdownEnter(item.title)}
+                      onMouseLeave={() => handleDropdownLeave(item.title)}
+                    >
+                      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                        {item.title === "Services" ? (
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8">
+                            {Object.entries(groupedServices).map(([category, services]) => (
+                              <div key={category} className="mb-6">
+                                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 font-manrope">
+                                  {category}
+                                </h3>
+                                <div className="flex flex-col space-y-1">
+                                  {services.map((service) => {
+                                    const isServiceActive = isActive(service.href);
+                                    return (
+                                      <Link
+                                        key={service.title}
+                                        to={service.href}
+                                        className="group/link dropdown-item"
+                                        onClick={(e) => handleDropdownLinkClick(e, service.href, service.title)}
+                                      >
+                                        <div className={`flex items-center justify-between py-1.5 px-2 -mx-2 rounded-sm transition-all duration-300 ${isServiceActive ? 'bg-gray-50' : 'hover:bg-gray-50'
+                                          }`}>
+                                          <span className={`text-sm font-instrument ${isServiceActive ? 'text-gray-900 font-medium' : 'text-gray-700 group-hover/link:text-gray-900'
+                                            }`}>
+                                            {service.title}
+                                          </span>
+                                          <ArrowRight className={`w-3 h-3 flex-shrink-0 transition-opacity duration-300 ${isServiceActive ? 'opacity-100 text-gray-900' : 'text-gray-400 opacity-0 group-hover/link:opacity-100'
+                                            }`} />
+                                        </div>
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : item.title === "Industries" ? (
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6">
+                            {item.dropdown.map((industry) => {
+                              const isIndustryActive = isActive(industry.href);
+                              return (
+                                <Link
+                                  key={industry.title}
+                                  to={industry.href}
+                                  className="group dropdown-item"
+                                  onClick={() => handleDropdownLinkClick()}
+                                >
+                                  <div className={`flex items-center justify-between py-1.5 px-2 -mx-2 rounded-sm transition-all duration-300 ${isIndustryActive ? 'bg-gray-50' : 'hover:bg-gray-50'
+                                    }`}>
+                                    <span className={`text-sm font-instrument ${isIndustryActive ? 'text-gray-900 font-medium' : 'text-gray-700 group-hover:text-gray-900'
+                                      }`}>
+                                      {industry.title}
+                                    </span>
+                                    <ArrowRight className={`w-3 h-3 flex-shrink-0 transition-opacity duration-300 ${isIndustryActive ? 'opacity-100 text-gray-900' : 'text-gray-400 opacity-0 group-hover:opacity-100'
+                                      }`} />
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6">
+                            {item.dropdown.map((dropItem) => {
+                              const isDropItemActive = isActive(dropItem.href);
+                              return (
+                                <Link
+                                  key={dropItem.title}
+                                  to={dropItem.href}
+                                  className="group dropdown-item"
+                                  onClick={() => handleDropdownLinkClick()}
+                                >
+                                  <div className={`py-1.5 px-2 -mx-2 rounded-sm transition-all duration-300 ${isDropItemActive ? 'bg-gray-50' : 'hover:bg-gray-50'
+                                    }`}>
+                                    <div className="flex justify-between items-start">
+                                      <div>
+                                        <div className={`text-sm font-instrument ${isDropItemActive ? 'text-gray-900 font-medium' : 'text-gray-900 group-hover:text-gray-700'
+                                          }`}>
+                                          {dropItem.title}
+                                        </div>
+                                        {dropItem.description && (
+                                          <div className={`text-xs font-instrument ${isDropItemActive ? 'text-gray-600' : 'text-gray-500'
+                                            }`}>
+                                            {dropItem.description}
+                                          </div>
                                         )}
+                                      </div>
+                                      <ArrowRight className={`w-4 h-4 flex-shrink-0 ml-2 mt-0.5 transition-opacity duration-300 ${isDropItemActive ? 'opacity-100 text-gray-900' : 'text-gray-400 opacity-0 group-hover:opacity-100'
+                                        }`} />
                                     </div>
-                                ))}
-                            </div>
-
-                            {/* Mobile Get App Button */}
-                            <div className="mt-8 px-4">
-                                <button className="w-full px-6 py-4 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-300 flex items-center justify-center gap-2 text-lg font-medium">
-                                    <FaDownload />
-                                    <span>Get the App</span>
-                                </button>
-                            </div>
-
-                            {/* Mobile Footer Links */}
-                            <div className="mt-8 pt-6 border-t border-gray-200">
-                                <div className="flex justify-center gap-6 text-sm text-gray-500">
-                                    <a href="/" className="hover:text-red-600 transition-colors">Terms</a>
-                                    <a href="/" className="hover:text-red-600 transition-colors">Privacy</a>
-                                    <a href="/" className="hover:text-red-600 transition-colors">Help</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Submenu - Slides from Right with Big Background Icons */}
-                    <div className={`absolute inset-0 bg-white transition-transform duration-500 ease-in-out ${mobileSubmenu ? 'translate-x-0' : 'translate-x-full'
-                        }`}>
-                        {mobileSubmenu && (
-                            <div className="h-full overflow-y-auto">
-                                <div className="px-6 py-8 relative">
-                                    {/* Large Background Icon */}
-                                    <div className="text-[25rem] text-red-600/10 absolute top-10 -right-40 z-0 pointer-events-none">
-                                        {(() => {
-                                            const Icon = mobileSubmenu.largeIcon;
-                                            return <Icon />;
-                                        })()}
-                                    </div>
-
-                                    {/* Submenu Header */}
-                                    <h2 className="flex items-center gap-2 relative z-10 text-2xl font-bold text-gray-900 mb-6">
-                                        {/* Back Button */}
-                                        <button
-                                            onClick={closeMobileSubmenu}
-                                            className="relative z-10 flex items-center gap-2 text-gray-600 hover:text-red-600 group"
-                                        >
-                                            <FaChevronLeft className="text-sm group-hover:-translate-x-1 transition-transform duration-300" />
-                                        </button>
-                                        {mobileSubmenu.name}
-                                    </h2>
-
-                                    {/* Sublinks */}
-                                    <div className="relative z-10 space-y-4">
-                                        {mobileSubmenu.sublinks.map((sublink) => (
-                                            <a
-                                                key={sublink.name}
-                                                href={sublink.href}
-                                                className="block relative overflow-hidden rounded-xl hover:bg-gray-50 transition-all duration-300 group"
-                                                onClick={() => {
-                                                    setIsMobileMenuOpen(false);
-                                                    setMobileSubmenu(null);
-                                                }}
-                                            >
-                                                {/* Text */}
-                                                <span className="relative z-10 block px-6 text-gray-700 group-hover:text-red-600 transition-colors duration-300 text-lg font-medium">
-                                                    {sublink.name}
-                                                </span>
-                                            </a>
-                                        ))}
-                                    </div>
-
-                                    {/* Explore/View All Link */}
-                                    {mobileSubmenu.exploreLink && (
-                                        <div className="relative z-10 mt-8 pt-6 border-t border-gray-200">
-                                            <a
-                                                href={mobileSubmenu.exploreLink.href}
-                                                className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium group"
-                                                onClick={() => {
-                                                    setIsMobileMenuOpen(false);
-                                                    setMobileSubmenu(null);
-                                                }}
-                                            >
-                                                {mobileSubmenu.exploreLink.label}
-                                                <FaArrowRight className="text-sm group-hover:translate-x-2 transition-transform duration-300" />
-                                            </a>
-                                        </div>
-                                    )}
-
-                                    {!mobileSubmenu.exploreLink && mobileSubmenu.sublinks.length > 0 && (
-                                        <div className="relative z-10 mt-8 pt-6 border-t border-gray-200">
-                                            <a
-                                                href={mobileSubmenu.href}
-                                                className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium group"
-                                                onClick={() => {
-                                                    setIsMobileMenuOpen(false);
-                                                    setMobileSubmenu(null);
-                                                }}
-                                            >
-                                                View all {mobileSubmenu.name}
-                                                <FaArrowRight className="text-sm group-hover:translate-x-2 transition-transform duration-300" />
-                                            </a>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
                         )}
+                      </div>
                     </div>
+                  )}
                 </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop CTA Button - Only visible on large screens */}
+          <div className="hidden lg:block" ref={ctaButtonRef} style={{ opacity: 0 }}>
+            <Link
+              to="/contact"
+              className="relative group inline-flex items-center space-x-2 bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium overflow-hidden transition-all duration-500 hover:shadow-lg hover:shadow-gray-900/20 font-manrope"
+              onMouseEnter={() => handleUnderlineHover('cta', true)}
+              onMouseLeave={() => handleUnderlineHover('cta', false)}
+            >
+              <span className="relative z-10">    Free Consultation</span>
+              <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" />
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </Link>
+          </div>
+
+          {/* Mobile/Tablet menu button - Visible up to lg breakpoint */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-50 focus:outline-none transition-all duration-300"
+            >
+              {isOpen ? <X className="w-6 h-6 transition-transform duration-300 rotate-90" /> : <Menu className="w-6 h-6 transition-transform duration-300" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile/Tablet Menu with Collapsible Dropdowns - Visible up to lg breakpoint */}
+      {isOpen && (
+        <div
+          ref={mobileMenuRef}
+          className="lg:hidden bg-white border-t border-gray-100 shadow-xl"
+        >
+          <div className="px-4 py-6 max-h-[80vh] overflow-y-auto">
+            {navItems.map((item) => {
+              const active = isActive(item.href);
+
+              return (
+                <div key={item.title} className="mb-3">
+                  {item.dropdown ? (
+                    <div>
+                      {/* Mobile category header */}
+                      <div className="flex items-center justify-between">
+                        <Link
+                          to={item.href}
+                          className={`py-3 px-0 text-sm font-medium transition-all duration-300 font-manrope ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                            }`}
+                          onClick={() => {
+                            setIsOpen(false);
+                            setMobileExpanded({});
+                          }}
+                        >
+                          {item.title}
+                        </Link>
+                        <button
+                          onClick={() => toggleMobileDropdown(item.title)}
+                          className="p-2"
+                        >
+                          <ChevronDown
+                            className={`w-4 h-5 transition-all duration-500 ${active ? 'text-gray-900' : 'text-gray-500'
+                              } ${mobileExpanded[item.title] ? "rotate-180" : ""
+                              }`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Collapsible dropdown items */}
+                      <div
+                        ref={el => mobileDropdownRefs.current[item.title] = el}
+                        className="overflow-hidden"
+                        style={{ height: 0, opacity: 0 }}
+                      >
+                        <div className="space-y-1 pt-3 pl-4">
+                          {item.dropdown.map((dropItem) => {
+                            const isDropItemActive = isActive(dropItem.href);
+                            return (
+                              <Link
+                                key={dropItem.title}
+                                to={dropItem.href}
+                                className={`flex items-center justify-between py-2 pl-5 pr-2 text-sm rounded-lg transition-all duration-300 font-instrument ${isDropItemActive
+                                  ? 'text-gray-900 font-medium bg-gray-50'
+                                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                  }`}
+                                onClick={(e) => {
+                                  if (item.title === "Services") {
+                                    e.preventDefault();
+                                    handleServiceNavigation(e, dropItem.href, dropItem.title);
+                                  } else {
+                                    setIsOpen(false);
+                                    setMobileExpanded({});
+                                  }
+                                }}
+                              >
+                                <span>{dropItem.title}</span>
+                                <ArrowRight className={`w-3 h-4 transition-transform duration-300 flex-shrink-0 ${isDropItemActive ? 'opacity-100 text-gray-900' : 'text-gray-400 group-hover:translate-x-1'
+                                  }`} />
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`relative block py-3 px-0 text-sm font-medium transition-all duration-300 font-manrope w-full ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                        }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* Mobile CTA Button */}
+            <div className="pt-6 mt-3 border-t border-gray-100">
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center w-full space-x-2 bg-gray-900 text-white px-6 py-3.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 font-manrope"
+                onClick={() => setIsOpen(false)}
+              >
+                <span>    Free Consultation</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
-        </>
-    );
+          </div>
+        </div>
+      )}
+    </nav>
+  );
 };
 
 export default Navbar;

@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Calendar, Clock, ChevronLeft, ChevronRight, Z
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
-import { blogPosts } from "@/data/blogData";
+import { blogPosts } from "../data/blogData";
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 

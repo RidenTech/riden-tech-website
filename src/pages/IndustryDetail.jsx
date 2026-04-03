@@ -5,7 +5,7 @@ import { ChevronLeft, Layers, ArrowRight, Sparkles } from "lucide-react";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { industries } from "@/data/industries";
+import { industries } from "../data/industries";
 
 gsap.registerPlugin(ScrollTrigger);
 

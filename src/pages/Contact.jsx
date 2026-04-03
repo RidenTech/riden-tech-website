@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HeroSection from "../components/HeroSection";
+import HeroSection from "@/components/HeroSection";
 import {
     FiMail, FiPhone, FiMapPin, FiClock, FiSend,
     FiGithub, FiTwitter, FiLinkedin, FiInstagram,

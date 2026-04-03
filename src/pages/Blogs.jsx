@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MessageCircle, Calendar, Clock, Search } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { blogPosts, categories } from "../data/blogData";
-import HeroSection from '../components/HeroSection';
+import { blogPosts, categories } from "@/data/blogData";
+import HeroSection from '@/components/HeroSection';
 
 gsap.registerPlugin(ScrollTrigger);
 

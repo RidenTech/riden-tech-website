@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
-import HeroSection from "../components/HeroSection";
-import AboutUs from "../components/AboutUs";
-import Technologies from "../components/Technologies";
-import Blog from "../components/Blog";
-import WhyChooseUs from "../components/WhyChooseUs";
+import HeroSection from "@/components/HeroSection";
+import AboutUs from "@/components/AboutUs";
+import Technologies from "@/components/Technologies";
+import Blog from "@/components/Blog";
+import WhyChooseUs from "@/components/WhyChooseUs";
 
 export default function AboutPage() {
     return (

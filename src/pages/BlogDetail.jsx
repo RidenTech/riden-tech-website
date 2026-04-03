@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Calendar, MessageCircle, Clock, Twitter, Facebook, Linkedin, Copy, Check } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { blogPosts } from "../data/blogData";
+import { blogPosts } from "@/data/blogData";
 
 gsap.registerPlugin(ScrollTrigger);
 

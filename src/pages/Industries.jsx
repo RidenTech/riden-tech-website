@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HeroSection from '../components/HeroSection';
+import HeroSection from '@/components/HeroSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
-import { industries } from "../data/industries";
+import { industries } from "@/data/industries";
 
 export default function IndustriesPage() {
     const [mounted, setMounted] = useState(false);

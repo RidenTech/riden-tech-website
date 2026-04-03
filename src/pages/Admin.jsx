@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FiLock, FiMail, FiLogIn, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { LuSparkles } from 'react-icons/lu';
-import BlogManager from '../components/BlogManager';
+import BlogManager from '@/components/BlogManager';
 import gsap from 'gsap';
 
 const AdminLogin = () => {
@@ -23,8 +23,8 @@ const AdminLogin = () => {
     const DEFAULT_EMAIL = 'admin@riden.tech';
     const DEFAULT_PASSWORD = 'admin123';
 
-    const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL || DEFAULT_EMAIL;
-    const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || DEFAULT_PASSWORD;
+    const ADMIN_EMAIL = process.env.REACT_APP_ADMIN_EMAIL || DEFAULT_EMAIL;
+    const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || DEFAULT_PASSWORD;
 
     useEffect(() => {
         setIsClient(true);

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FiLock, FiMail, FiLogIn, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { LuSparkles } from 'react-icons/lu';
-import BlogManager from '@/components/BlogManager';
+import BlogManager from 'components/BlogManager';
 import gsap from 'gsap';
 
 const AdminLogin = () => {

@@ -1,6 +1,4 @@
 import {
-    FaHeartbeat,
-    FaChartLine,
     FaShoppingCart,
     FaTruck,
     FaGraduationCap,

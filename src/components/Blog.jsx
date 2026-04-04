@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Calendar, Clock, ChevronLeft, ChevronRight, Z
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
-import { blogPosts } from "@/data/blogData";
+import { blogPosts } from "../data/blogData";
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -235,13 +235,16 @@ export default function Blog() {
 
     }, sectionRef);
 
+    const section = sectionRef.current;
+    const pinContainer = pinContainerRef.current;
+
     return () => {
       if (draggableInstance.current) {
         draggableInstance.current.kill();
       }
       ctx.revert();
       ScrollTrigger.getAll().forEach(t => {
-        if (t.trigger === sectionRef.current || t.pin === pinContainerRef.current) t.kill();
+        if (t.trigger === section || t.pin === pinContainer) t.kill();
       });
     };
   }, [scrollLength, isMobile, isTablet, mounted]);

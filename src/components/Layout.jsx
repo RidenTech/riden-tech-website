@@ -1,9 +1,13 @@
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from "./Navbar";
 import Footer from './Footer';
 import CTA from "./CTA";
 
 export default function Layout({ children }) {
+    const location = useLocation();
+    const isHomePage = location.pathname === '/';
+
     return (
         <>
             <Helmet>
@@ -27,7 +31,7 @@ export default function Layout({ children }) {
 
             <div className="font-instrument antialiased">
                 <Navbar />
-                <main className="pt-20">{children}</main>
+                <main className={isHomePage ? "" : "pt-20"}>{children}</main>
                 <CTA />
                 <Footer />
             </div>

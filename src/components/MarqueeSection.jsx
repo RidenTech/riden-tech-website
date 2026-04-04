@@ -11,7 +11,7 @@ const MarqueeService = () => {
     if (!marquee) return;
 
     let startTime = null;
-    const speed = 0.005;
+    const speed = 0.004;
 
     const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
@@ -45,7 +45,7 @@ const MarqueeService = () => {
   ];
 
   return (
-    <section className="w-full bg-black py-3 overflow-hidden">
+    <section className="w-full h-[10vh] bg-black flex items-center overflow-hidden">
 
       <div className="relative overflow-hidden">
         <div
@@ -60,7 +60,7 @@ const MarqueeService = () => {
                 <div key={`${copyIndex}-${index}`} className="flex items-center mx-2">
                   {/* Rounded button */}
                   <div className="group relative">
-                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full py-3 px-6 cursor-pointer">
+                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full py-2.5 px-6 cursor-pointer">
                       <span className="text-white font-medium text-sm   tracking-wide ">
                         {item}
                       </span>
@@ -69,12 +69,12 @@ const MarqueeService = () => {
 
 
                   </div>
-                  <div className="bg-white/10  border-white/20  backdrop-blur-sm border -rotate-45  rounded-full p-3">
-                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                  <div className="bg-white/10 border-white/20 backdrop-blur-sm border -rotate-45 rounded-full p-2.5 flex items-center justify-center">
+                    <ArrowRight className="w-4 h-4 text-white" />
                   </div>
 
                   {/* Star separator */}
-                  <Star className="w-4 h-4 md:w-5 md:h-5 text-white/40 mx-4 md:mx-6" />
+                  <Star className="w-4 h-4 text-white/40 mx-4 md:mx-6" />
                 </div>
               ))}
             </div>

@@ -4,10 +4,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HeroSection from "@/components/HeroSection";
-import Blog from "@/components/Blog";
-import Technologies from "@/components/Technologies";
-import WhyChooseUs from "@/components/WhyChooseUs";
+import HeroSection from "components/HeroSection";
+import Blog from "components/Blog";
+import Technologies from "components/Technologies";
+import WhyChooseUs from "components/WhyChooseUs";
 
 gsap.registerPlugin(ScrollTrigger);
 

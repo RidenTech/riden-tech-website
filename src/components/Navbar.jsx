@@ -246,7 +246,7 @@ const Navbar = () => {
           element.style.height = 'auto';
           const height = element.scrollHeight;
           element.style.height = '0px';
-          element.offsetHeight;
+          void element.offsetHeight;
 
           gsap.to(element, {
             height: height,
@@ -260,7 +260,7 @@ const Navbar = () => {
         } else {
           const height = element.scrollHeight;
           element.style.height = height + 'px';
-          element.offsetHeight;
+          void element.offsetHeight;
 
           gsap.to(element, {
             height: 0,

@@ -5,7 +5,7 @@ import { ChevronLeft, Layers, ArrowRight, Sparkles } from "lucide-react";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { industries } from "@/data/industries";
+import { industries } from "../data/industries";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,9 +20,6 @@ const industryData = industries.reduce((acc, industry) => {
 export default function IndustryDetailPage() {
     const { slug } = useParams();
     const [mounted, setMounted] = useState(false);
-    const [imageError, setImageError] = useState(false);
-    const [hoveredFeature, setHoveredFeature] = useState(null);
-    const [hoveredSolution, setHoveredSolution] = useState(null);
 
 
     const sectionRef = useRef(null);
@@ -188,7 +185,6 @@ export default function IndustryDetailPage() {
     }, [mounted, industry]);
 
     const handleFeatureMouseEnter = (index) => {
-        setHoveredFeature(index);
         const card = featuresRef.current[index];
         if (!card) return;
 
@@ -210,7 +206,6 @@ export default function IndustryDetailPage() {
     };
 
     const handleFeatureMouseLeave = (index) => {
-        setHoveredFeature(null);
         const card = featuresRef.current[index];
         if (!card) return;
 
@@ -232,7 +227,6 @@ export default function IndustryDetailPage() {
     };
 
     const handleSolutionMouseEnter = (index) => {
-        setHoveredSolution(index);
         const card = solutionsRef.current[index];
         if (!card) return;
 
@@ -256,7 +250,6 @@ export default function IndustryDetailPage() {
     };
 
     const handleSolutionMouseLeave = (index) => {
-        setHoveredSolution(null);
         const card = solutionsRef.current[index];
         if (!card) return;
 
@@ -332,7 +325,6 @@ export default function IndustryDetailPage() {
                                     src={industry.image}
                                     alt={industry.title}
                                     className="industry-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    onError={() => setImageError(true)}
                                 />
                             </div>
                         </div>

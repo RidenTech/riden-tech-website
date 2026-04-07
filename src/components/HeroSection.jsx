@@ -102,14 +102,14 @@ export default function HeroSection1({
     return (
         <section
             ref={sectionRef}
-            className="w-full  h-[75vh] flex items-center justify-center pt-16 px-6 md:px-20 overflow-hidden bg-white"
+            className="w-full min-h-[60vh] lg:h-[75vh] flex items-center justify-center pt-24 pb-16 px-6 md:px-20 overflow-hidden bg-white"
         >
             {/* Header Only - No Image */}
             <div className="max-w-7xl mx-auto text-center">
-                <div className="relative mb-6 flex justify-center">
+                <div className="relative mb-6 md:mb-8 flex justify-center">
                     <h1
                         ref={titleRef}
-                        className="    font-semibold text-[13vw] md:text-[10vw] lg:text-[8vw] font-black uppercase text-gray-900 leading-[0.85] tracking-tight"
+                        className="font-manrope font-semibold text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] font-black uppercase text-gray-900 leading-[0.9] md:leading-[0.85] tracking-tight"
                     >
                         {title}
                     </h1>
@@ -118,23 +118,23 @@ export default function HeroSection1({
                 {subtitle && (
                     <p
                         ref={subtitleRef}
-                        className="   text-xl  text-gray-600 max-w-4xl mx-auto leading-relaxed "
+                        className="font-instrument text-lg md:text-xl text-gray-600 max-w-2xl md:max-w-4xl mx-auto leading-relaxed"
                     >
                         {subtitle}
                     </p>
                 )}
 
-                <div className="mt-4 flex justify-center opacity-0" ref={buttonRef}>
+                <div className="mt-8 md:mt-10 flex justify-center opacity-0" ref={buttonRef}>
                     <Link
                         to="/contact"
-                        className="group relative inline-flex items-center gap-2 px-10 py-4 bg-gray-900 text-white rounded-full overflow-hidden transition-transform duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                        className="group relative inline-flex items-center gap-2 px-8 md:px-10 py-3.5 md:py-4 bg-gray-900 text-white rounded-full overflow-hidden transition-transform duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
                     >
-                        <span className="relative z-10     font-semibold tracking-wide">
+                        <span className="relative z-10 font-manrope font-semibold tracking-wide text-sm md:text-base">
                             Get in Touch
                         </span>
                         <div className="absolute inset-0 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                         <svg
-                            className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                            className="relative z-10 w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"

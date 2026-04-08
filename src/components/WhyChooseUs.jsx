@@ -65,7 +65,7 @@ export default function WhyChooseUs() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 90%",
           end: "bottom 30%",
           toggleActions: "play none none reverse"
         }
@@ -75,7 +75,7 @@ export default function WhyChooseUs() {
       if (badgeRef.current) {
         tl.fromTo(badgeRef.current,
           { y: -30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+          { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
         );
       }
 
@@ -83,8 +83,8 @@ export default function WhyChooseUs() {
       if (titleRef.current) {
         tl.fromTo(titleRef.current,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.9, ease: "power4.out" },
-          "-=0.4"
+          { y: 0, opacity: 1, duration: 0.6, ease: "power4.out" },
+          "-=0.3"
         );
       }
 
@@ -92,8 +92,8 @@ export default function WhyChooseUs() {
       if (subtitleRef.current) {
         tl.fromTo(subtitleRef.current,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-          "-=0.4"
+          { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+          "-=0.3"
         );
       }
 
@@ -110,8 +110,8 @@ export default function WhyChooseUs() {
             y: 0,
             opacity: 1,
             scale: 1,
-            duration: 0.8,
-            stagger: 0.1,
+            duration: 0.6,
+            stagger: 0.08,
             ease: "power3.out"
           },
           "-=0.2"
@@ -122,7 +122,7 @@ export default function WhyChooseUs() {
       if (ctaRef.current) {
         tl.fromTo(ctaRef.current,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "back.out(1.2)" },
+          { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.2)" },
           "-=0.2"
         );
       }
@@ -155,13 +155,13 @@ export default function WhyChooseUs() {
             className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-full px-5 py-2.5 mb-6 shadow-lg"
           >
             <Sparkles className="w-4 h-4 mr-2 text-gray-300" />
-            <span className="text-sm font-manrope font-medium tracking-wide">WHY CHOOSE US</span>
+            <span className="text-sm   font-medium tracking-wide">WHY CHOOSE US</span>
           </div>
 
           {/* Title */}
           <h2
             ref={titleRef}
-            className="font-manrope font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-2"
+            className="  font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-2"
           >
             We Build <span className="text-gray-400">Partnerships</span>
           </h2>
@@ -178,7 +178,7 @@ export default function WhyChooseUs() {
         {/* Cards Grid */}
         <div
           ref={cardsContainerRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 px-4"
         >
           {reasons.map((reason, index) => (
             <div
@@ -194,7 +194,7 @@ export default function WhyChooseUs() {
               </div>
 
               {/* Title */}
-              <h3 className="font-manrope font-semibold text-xl text-gray-900 mb-3">
+              <h3 className="  font-semibold text-xl text-gray-900 mb-3">
                 {reason.title}
               </h3>
 
@@ -210,13 +210,14 @@ export default function WhyChooseUs() {
         </div>
 
         {/* CTA Section */}
-        <div ref={ctaRef} className="text-center mt-16">
+        <div ref={ctaRef} className="text-center mt-6">
           <Link
             to="/contact"
-            className="group inline-flex items-center space-x-2 bg-gray-900 text-white px-8 py-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 hover:shadow-xl font-manrope"
+            className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:shadow-gray-900/20   overflow-hidden"
           >
-            <span>Start Your Project</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <span className="relative z-10">Start Your Project</span>
+            <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
           </Link>
 
         </div>

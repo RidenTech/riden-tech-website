@@ -91,13 +91,13 @@ export default function CTA() {
             className="inline-flex items-center bg-white/10 backdrop-blur-sm text-white rounded-full px-4 py-2 mb-6 border border-white/20"
           >
             <Sparkles className="w-4 h-4 mr-2 text-yellow-400" />
-            <span className="text-xs font-manrope tracking-wider uppercase">Work with us</span>
+            <span className="text-xs   tracking-wider uppercase">Work with us</span>
           </div>
 
           {/* Title */}
           <h2
             ref={titleRef}
-            className="font-manrope font-semibold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 leading-tight"
+            className="  font-semibold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 leading-tight"
           >
             Let's Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Together</span>
           </h2>
@@ -105,7 +105,7 @@ export default function CTA() {
           {/* Description */}
           <p
             ref={descriptionRef}
-            className="font-instrument text-gray-300 max-w-2xl mx-auto mb-8 text-lg md:text-xl"
+            className="text-base md:text-lg  text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
             Have a project idea or need expert guidance?
             Our team is ready to help you bring your vision to life. </p>
@@ -114,7 +114,7 @@ export default function CTA() {
           <div ref={buttonRef} className="flex justify-center">
             <Link
               to="/contact"
-              className="group relative inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full text-sm font-medium overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-white/30 font-manrope"
+              className="group relative inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full text-sm font-medium overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-white/30  "
             >
               <span className="relative z-10">Contact Us</span>
               <ArrowRight className="relative z-10 w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

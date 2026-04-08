@@ -461,8 +461,9 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo with Marcellus font */}
           <div className="flex-shrink-0" ref={logoRef} style={{ opacity: 0 }}>
-            <Link to="/" className="font-marcellus text-2xl tracking-wide text-gray-900">
-              Riden<span className="text-gray-500 ml-1 text-lg font-light">Tech</span>
+            <Link to="/" className="font-marcellus text-2xl tracking-wide text-gray-900 flex items-center gap-1 justify-center">
+              <img src="/fav.png" alt="Logo" className="w-10 h-10 rounded-lg" />
+              <img src="/text-logo.png" alt="text-logo" className="w-full h-12" />
             </Link>
           </div>
 
@@ -485,7 +486,7 @@ const Navbar = () => {
                     <div className="flex items-center">
                       <Link
                         to={item.href}
-                        className={`py-2 text-sm font-medium relative group font-manrope ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                        className={`py-2 text-sm font-medium relative group   ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
                           }`}
                         onClick={() => handleDropdownLinkClick()}
                       >
@@ -517,7 +518,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      className={`relative px-0 py-2 text-sm font-medium group inline-block font-manrope ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                      className={`relative px-0 py-2 text-sm font-medium group inline-block   ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
                         }`}
                       onMouseEnter={() => {
                         if (window.innerWidth >= 1024 && !active) {
@@ -553,7 +554,7 @@ const Navbar = () => {
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8">
                             {Object.entries(groupedServices).map(([category, services]) => (
                               <div key={category} className="mb-6">
-                                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 font-manrope">
+                                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3  ">
                                   {category}
                                 </h3>
                                 <div className="flex flex-col space-y-1">
@@ -653,13 +654,13 @@ const Navbar = () => {
           <div className="hidden lg:block" ref={ctaButtonRef} style={{ opacity: 0 }}>
             <Link
               to="/contact"
-              className="relative group inline-flex items-center space-x-2 bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium overflow-hidden transition-all duration-500 hover:shadow-lg hover:shadow-gray-900/20 font-manrope"
+              className="relative group inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-sm font-medium overflow-hidden transition-all duration-500 hover:shadow-md hover:shadow-gray-900/20  "
               onMouseEnter={() => handleUnderlineHover('cta', true)}
               onMouseLeave={() => handleUnderlineHover('cta', false)}
             >
-              <span className="relative z-10">    Free Consultation</span>
+              <span className="relative z-10 font-semibold tracking-wide">Free Consultation</span>
               <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" />
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </Link>
           </div>
 
@@ -693,7 +694,7 @@ const Navbar = () => {
                       <div className="flex items-center justify-between">
                         <Link
                           to={item.href}
-                          className={`py-3 px-0 text-sm font-medium transition-all duration-300 font-manrope ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                          className={`py-3 px-0 text-sm font-medium transition-all duration-300   ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
                             }`}
                           onClick={() => {
                             setIsOpen(false);
@@ -753,7 +754,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      className={`relative block py-3 px-0 text-sm font-medium transition-all duration-300 font-manrope w-full ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                      className={`relative block py-3 px-0 text-sm font-medium transition-all duration-300   w-full ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
                         }`}
                       onClick={() => setIsOpen(false)}
                     >
@@ -768,11 +769,12 @@ const Navbar = () => {
             <div className="pt-6 mt-3 border-t border-gray-100">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center w-full space-x-2 bg-gray-900 text-white px-6 py-3.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 font-manrope"
+                className="relative group inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 py-4 rounded-full text-sm font-medium overflow-hidden transition-all duration-500  "
                 onClick={() => setIsOpen(false)}
               >
-                <span>    Free Consultation</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <span className="relative z-10 font-semibold tracking-wide">Free Consultation</span>
+                <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </Link>
             </div>
           </div>

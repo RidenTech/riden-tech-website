@@ -17,7 +17,6 @@ const About = () => {
   const imageRef = useRef(null);
   const badgeRef = useRef(null);
   const ctaRef = useRef(null);
-  const borderLineRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     if (!mounted) return;
@@ -27,17 +26,17 @@ const About = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 90%",
           end: "bottom 20%",
           toggleActions: "play none none reverse"
         }
       });
 
-      // Badge animation - fade in and slide down
+
       if (badgeRef.current) {
         tl.fromTo(badgeRef.current,
           { y: -30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+          { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
         );
       }
 
@@ -49,11 +48,11 @@ const About = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 0.9,
-            stagger: 0.2,
+            duration: 0.6,
+            stagger: 0.1,
             ease: "power4.out"
           },
-          "-=0.4"
+          "-=0.3"
         );
       }
 
@@ -61,8 +60,8 @@ const About = () => {
       if (headingRef.current) {
         tl.fromTo(headingRef.current,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-          "-=0.4"
+          { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+          "-=0.3"
         );
       }
 
@@ -78,10 +77,10 @@ const About = () => {
             opacity: 1,
             scale: 1,
             rotation: 0,
-            duration: 1.4,
+            duration: 0.7,
             ease: "power3.out"
           },
-          "-=0.6"
+          "-=0.4"
         );
       }
 
@@ -89,8 +88,8 @@ const About = () => {
       if (descriptionRef.current) {
         tl.fromTo(descriptionRef.current,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-          "-=0.6"
+          { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
+          "-=0.4"
         );
       }
 
@@ -102,29 +101,22 @@ const About = () => {
           {
             scale: 1,
             opacity: 1,
-            duration: 0.7,
-            stagger: 0.15,
+            duration: 0.5,
+            stagger: 0.1,
             ease: "back.out(1.4)"
           },
           "-=0.4"
         );
       }
 
-      // Border line animation
-      if (borderLineRef.current) {
-        tl.fromTo(borderLineRef.current,
-          { scaleX: 0, opacity: 0 },
-          { scaleX: 1, opacity: 1, duration: 1, ease: "power3.out" },
-          "-=0.2"
-        );
-      }
+
 
       // CTA button animation
       if (ctaRef.current) {
         tl.fromTo(ctaRef.current,
           { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, ease: "back.out(1.2)" },
-          "-=0.2"
+          { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.2)" },
+          "-=0.3"
         );
       }
 
@@ -192,45 +184,42 @@ const About = () => {
 
 
   return (
-    <section ref={sectionRef} className="relative py-24 bg-white overflow-hidden">
-      {/* Background decorative elements with parallax */}
-      <div className="about-bg-1 absolute top-40 right-0 w-96 h-96 bg-gray-100 rounded-full filter blur-3xl opacity-20"></div>
-      <div className="about-bg-2 absolute bottom-20 left-20 w-72 h-72 bg-gray-100 rounded-full filter blur-3xl opacity-20"></div>
+    <section ref={sectionRef} className="relative py-16 bg-white overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          {/* Floating Badge */}
+        <div className="text-center mb-2 sm:mb-10 ">
+
           <div
             ref={badgeRef}
             className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-full px-5 py-2.5 mb-6 shadow-lg"
           >
             <Zap className="w-4 h-4 mr-2" />
-            <span className="text-sm font-manrope font-medium tracking-wide">WHO WE ARE</span>
+            <span className="text-sm   font-medium tracking-wide">WHO WE ARE</span>
           </div>
 
           <h2
             ref={titleRef}
-            className="font-manrope font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-2"
+            className="  font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-2"
           >
             We're on a Mission to
           </h2>
           <h2
             ref={subtitleRef}
-            className="font-manrope font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-6"
+            className="  font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-6"
           >
             Transform <span className="text-gray-400 ">Digital</span>
           </h2>
 
           {/* Heading with animation */}
-          <p ref={headingRef} className="font-instrument text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            We’re a tight-knit team of creators, thinkers, and problem-solvers passionate about turning your ideas into powerful digital solutions.
+          <p ref={headingRef} className=" text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+            We’re a  team of creators, thinkers, and problem-solvers passionate about turning your ideas into powerful digital solutions.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12  items-center">
           {/* Left Side - Image with Responsive Clip Path */}
           <div className="relative order-2 md:order-1">
-            <div className="relative w-full max-w-[320px] sm:max-w-[450px] md:max-w-[550px] lg:max-w-[600px] aspect-[1.1/1] mx-auto">
+            <div className="relative w-full max-w-[250px] sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px] aspect-[1.1/1] mx-auto">
               <div
                 ref={imageRef}
                 className="absolute inset-0 w-full h-full shadow-2xl"
@@ -250,19 +239,19 @@ const About = () => {
           </div>
 
           {/* Right Side - Content */}
-          <div className="order-1 md:order-2 space-y-6">
+          <div className="order-1 md:order-2 space-y-6 text-center lg:text-left">
             {/* Description Text */}
             <div ref={descriptionRef} className="space-y-4">
-              <p className="font-instrument text-lg text-gray-600 leading-relaxed">
+              <p className="font-instrument text-base text-gray-600 leading-relaxed">
                 At RidenTech, we believe great software is built through strong collaboration. Our team combines technical expertise with creative problem-solving to deliver solutions that aren’t just functional they’re exceptional.
               </p>
-              <p className="font-instrument text-lg text-gray-600 leading-relaxed">
+              <p className="font-instrument text-base text-gray-600 leading-relaxed">
                 We take the time to understand your vision, challenges, and goals. Then we get to work, building high-quality products that create real impact for your business.
               </p>
             </div>
 
             {/* Stats Row - Icons only (as requested) */}
-            <div className="grid grid-cols-3 gap-3 pt-4">
+            <div className="grid grid-cols-3 gap-2 pt-4">
               {/* Expert Team */}
               <div
                 ref={el => statsRef.current[0] = el}
@@ -271,7 +260,7 @@ const About = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-200 rounded-2xl mb-3 group-hover:scale-110 transition-transform duration-300 mx-auto">
                   <Users className="w-8 h-8 text-black" />
                 </div>
-                <div className="font-manrope text-sm font-semibold text-gray-900">EXPERT TEAM</div>
+                <div className="  text-sm font-semibold text-gray-900">EXPERT TEAM</div>
                 <div className="font-instrument text-xs text-gray-500 mt-1">Skilled professionals</div>
               </div>
 
@@ -283,7 +272,7 @@ const About = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-200 rounded-2xl mb-3 group-hover:scale-110 transition-transform duration-300 mx-auto">
                   <Rocket className="w-8 h-8 text-black" />
                 </div>
-                <div className="font-manrope text-sm font-semibold text-gray-900">FAST DELIVERY</div>
+                <div className="  text-sm font-semibold text-gray-900">FAST DELIVERY</div>
                 <div className="font-instrument text-xs text-gray-500 mt-1">Quick turnaround</div>
               </div>
 
@@ -295,25 +284,22 @@ const About = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-200 rounded-2xl mb-3 group-hover:scale-110 transition-transform duration-300 mx-auto">
                   <Star className="w-8 h-8 text-black" />
                 </div>
-                <div className="font-manrope text-sm font-semibold text-gray-900">SATISFACTION</div>
+                <div className="  text-sm font-semibold text-gray-900">SATISFACTION</div>
                 <div className="font-instrument text-xs text-gray-500 mt-1">Happy clients</div>
               </div>
             </div>
 
-            {/* Divider Line */}
-            <div
-              ref={borderLineRef}
-              className="w-full h-px bg-gray-200 transform origin-left"
-            ></div>
+
 
             {/* CTA with animation */}
             <div ref={ctaRef} className="pt-2">
               <Link
                 to="/about"
-                className="group inline-flex items-center space-x-2 bg-gray-900 text-white px-8 py-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 hover:shadow-lg font-manrope"
+                className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:shadow-gray-900/20   overflow-hidden"
               >
-                <span>Learn More About Us</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <span className="relative z-10">Learn More</span>
+                <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </Link>
             </div>
           </div>

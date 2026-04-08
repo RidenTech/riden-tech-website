@@ -16,6 +16,7 @@ export default function AboutPage() {
                 title="ABOUT US"
                 subtitle="Innovating technology solutions that help businesses grow faster, operate smarter, and stay ahead in a competitive digital landscape."
                 primaryCta={{ text: "Meet the Team", href: "/team" }}
+                backgroundImage="/about.jpg"
             />
             <AboutUs />
             <WhyChooseUs />

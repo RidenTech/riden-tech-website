@@ -66,31 +66,31 @@ const AboutUs = () => {
     updateClipPath();
     window.addEventListener('resize', updateClipPath);
 
-    // Set initial states
-    const initialTargets = [
-      badgeRef.current, titleRef.current, headingRef.current,
-      descriptionRef.current, ...featuresRef.current.filter(Boolean),
-      borderLineRef.current, ctaRef.current, imageRef.current
-    ].filter(Boolean);
-
-    if (initialTargets.length > 0) {
-      gsap.set(initialTargets, {
-        opacity: 0,
-        y: 30
-      });
-    }
-
-    // Explicitly set scaleX for borderLineRef if it exists
-    if (borderLineRef.current) {
-      gsap.set(borderLineRef.current, { scaleX: 0 });
-    }
-
     const ctx = gsap.context(() => {
+      // Set initial states
+      const initialTargets = [
+        badgeRef.current, titleRef.current, headingRef.current,
+        descriptionRef.current, ...featuresRef.current.filter(Boolean),
+        borderLineRef.current, ctaRef.current, imageRef.current
+      ].filter(Boolean);
+
+      if (initialTargets.length > 0) {
+        gsap.set(initialTargets, {
+          opacity: 0,
+          y: 30
+        });
+      }
+
+      // Explicitly set scaleX for borderLineRef if it exists
+      if (borderLineRef.current) {
+        gsap.set(borderLineRef.current, { scaleX: 0 });
+      }
+
       // Create a master timeline with delays
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 75%",
           end: "bottom 20%",
           toggleActions: "play none none reverse",
           once: true // Only animate once
@@ -102,9 +102,9 @@ const AboutUs = () => {
         masterTl.to(badgeRef.current, {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          duration: 0.6,
           ease: "power3.out"
-        }, 0.2); // 0.2s delay
+        }, 0.1); // 0.1s delay
       }
 
       // Title and subtitle with staggered delay
@@ -113,10 +113,10 @@ const AboutUs = () => {
         masterTl.to(titleTargets, {
           y: 0,
           opacity: 1,
-          duration: 0.9,
-          stagger: 0.2,
+          duration: 0.7,
+          stagger: 0.1,
           ease: "power4.out"
-        }, 0.4); // 0.4s delay
+        }, 0.2); // 0.2s delay
       }
 
       // Heading with delay
@@ -124,9 +124,9 @@ const AboutUs = () => {
         masterTl.to(headingRef.current, {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          duration: 0.6,
           ease: "power3.out"
-        }, 0.6); // 0.6s delay
+        }, 0.3); // 0.3s delay
       }
 
       // Image animation with delay
@@ -141,10 +141,10 @@ const AboutUs = () => {
             opacity: 1,
             scale: 1,
             rotation: 0,
-            duration: 1.4,
+            duration: 1,
             ease: "power3.out"
           },
-          0.8 // 0.8s delay
+          0.4 // 0.4s delay
         );
       }
 
@@ -153,9 +153,9 @@ const AboutUs = () => {
         masterTl.to(descriptionRef.current, {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          duration: 0.7,
           ease: "power3.out"
-        }, 1.0); // 1.0s delay
+        }, 0.5); // 0.5s delay
       }
 
       // Features with staggered delay
@@ -168,7 +168,7 @@ const AboutUs = () => {
             opacity: 1,
             duration: 0.6,
             ease: "power3.out"
-          }, 1.2 + (index * 0.15)); // Staggered starting at 1.2s
+          }, 0.6 + (index * 0.1)); // Staggered starting at 0.6s
         });
       }
 
@@ -177,9 +177,9 @@ const AboutUs = () => {
         masterTl.to(borderLineRef.current, {
           scaleX: 1,
           opacity: 1,
-          duration: 1,
+          duration: 0.8,
           ease: "power3.out"
-        }, 1.8); // 1.8s delay
+        }, 1.0); // 1.0s delay
       }
 
       // CTA with delay
@@ -187,9 +187,9 @@ const AboutUs = () => {
         masterTl.to(ctaRef.current, {
           y: 0,
           opacity: 1,
-          duration: 0.7,
+          duration: 0.6,
           ease: "back.out(1.2)"
-        }, 2.0); // 2.0s delay
+        }, 1.2); // 1.2s delay
       }
 
 
@@ -258,7 +258,7 @@ const AboutUs = () => {
   if (!mounted) return <section ref={sectionRef} className="relative py-16 bg-white overflow-hidden" />;
 
   return (
-    <section ref={sectionRef} className="relative py-24 bg-white overflow-hidden">
+    <section ref={sectionRef} className="relative py-16 bg-white overflow-hidden  ">
       {/* Background decorative elements with parallax */}
       <div className="mission-bg-1 absolute top-40 right-0 w-96 h-96 bg-gray-100 rounded-full filter blur-3xl opacity-20"></div>
       <div className="mission-bg-2 absolute bottom-20 left-20 w-72 h-72 bg-gray-100 rounded-full filter blur-3xl opacity-20"></div>
@@ -283,12 +283,13 @@ const AboutUs = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 lg:items-stretch">
           <div className="relative order-2 lg:order-1 flex items-center">
-            <div className="relative h-[400px] sm:h-[500px] md:h-[550px] lg:h-[550px] w-full max-w-[320px] sm:max-w-[450px] md:max-w-[550px] lg:max-w-[550px] mx-auto">
+
+            <div className="relative w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px] aspect-[1.1/1] mx-auto">
               <div
                 ref={imageRef}
-                className="absolute inset-0 w-full h-full shadow-2xl opacity-0"
+                className="absolute inset-0 w-full h-full shadow-2xl"
                 style={{
                   clipPath: clipPath,
                 }}
@@ -342,13 +343,14 @@ const AboutUs = () => {
             </div>
 
             {/* CTA with animation */}
-            <div ref={ctaRef} className="flex  opacity-0">
+            <div ref={ctaRef} className="flex  opacity-0 justify-center md:justify-start">
               <Link
                 to="/contact"
-                className="group inline-flex items-center space-x-2 bg-gray-900 text-white px-8 py-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 hover:shadow-lg font-manrope"
+                className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:shadow-gray-900/20   overflow-hidden"
               >
-                <span>Contact Us</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <span className="relative z-10">Contact Us</span>
+                <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </Link>
             </div>
           </div>

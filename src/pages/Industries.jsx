@@ -147,10 +147,10 @@ export default function IndustriesPage() {
             <HeroSection
                 title="Industry Expertise"
                 subtitle="Deep domain expertise across sectors delivering tailored solutions for your unique challenges"
-                overlayColor="bg-white"
+                backgroundImage="/img-1.jpg"
             />
 
-            <section ref={sectionRef} className="-mt-16 pb-24 px-4 md:px-6 lg:px-8">
+            <section ref={sectionRef} className=" pb-24 px-4 md:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col gap-4 md:gap-5 lg:gap-6">
                         {industries.map((industry, index) => {
@@ -195,17 +195,19 @@ export default function IndustriesPage() {
                                             </p>
 
                                             <div className="flex flex-col sm:flex-row items-start sm:items-center  gap-2">
-                                                <Link to='/contact' className="explore-button flex items-center gap-2 font-semibold text-xs bg-gray-900 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full order-1 sm:order-2">
-                                                    <span className="    whitespace-nowrap">Contact Us</span>
-                                                    <div className="arrow-icon w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full flex items-center justify-center flex-shrink-0">
-                                                        <ArrowRight className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-gray-900" />
+                                                <Link to='/contact' className="explore-button group relative inline-flex items-center gap-2 bg-gray-900 text-white  px-3 py-2 sm:px-4 sm:py-3  rounded-full text-xs font-medium transition-all duration-300 hover:scale-[1.05] hover:shadow-xl overflow-hidden order-1 sm:order-2">
+                                                    <span className="relative z-10 whitespace-nowrap">Contact Us</span>
+                                                    <div className="relative z-10 arrow-icon w-5 h-5 bg-white rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                                        <ArrowRight className="w-2.5 h-2.5 text-gray-900" />
                                                     </div>
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                                                 </Link>
-                                                <Link to={`/industries/${industry.slug}`} className=" flex items-center gap-2 font-semibold text-xs bg-gray-100 text-gray-900 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full order-1 sm:order-2">
-                                                    <span className="    whitespace-nowrap">Read More</span>
-                                                    <div className="arrow-icon w-4 h-4 sm:w-5 sm:h-5 bg-gray-900 rounded-full flex items-center justify-center flex-shrink-0">
-                                                        <ArrowRight className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
+                                                <Link to={`/industries/${industry.slug}`} className="group relative inline-flex items-center gap-2 bg-gray-100 text-gray-900  px-3 py-2 sm:px-4 sm:py-3  rounded-full text-xs font-medium transition-all duration-300 hover:scale-[1.05] hover:shadow-lg overflow-hidden order-1 sm:order-2">
+                                                    <span className="relative z-10 whitespace-nowrap">Read More</span>
+                                                    <div className="relative z-10 arrow-icon w-5 h-5 bg-gray-900 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                                        <ArrowRight className="w-2.5 h-2.5 text-white" />
                                                     </div>
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                                                 </Link>
                                             </div>
                                         </div>

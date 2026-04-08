@@ -32,8 +32,8 @@ const Hero = () => {
       if (badgeRef.current) {
         tl.fromTo(badgeRef.current,
           { y: -30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-          "-=0.3"
+          { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+          "-=0.2"
         );
       }
 
@@ -45,11 +45,11 @@ const Hero = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 0.9,
-            stagger: 0.15,
+            duration: 0.6,
+            stagger: 0.1,
             ease: "power4.out"
           },
-          "-=0.4"
+          "-=0.3"
         );
       }
 
@@ -57,8 +57,8 @@ const Hero = () => {
       if (descriptionRef.current) {
         tl.fromTo(descriptionRef.current,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-          "-=0.6"
+          { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+          "-=0.4"
         );
       }
 
@@ -75,7 +75,7 @@ const Hero = () => {
       if (button1Ref.current) {
         tl.fromTo(button1Ref.current,
           { scale: 0.8, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
+          { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" },
           "-=0.2"
         );
       }
@@ -84,7 +84,7 @@ const Hero = () => {
       if (button2Ref.current) {
         tl.fromTo(button2Ref.current,
           { scale: 0.8, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
+          { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" },
           "-=0.3"
         );
       }
@@ -99,10 +99,10 @@ const Hero = () => {
           {
             opacity: 1,
             scale: 1,
-            duration: 1.2,
+            duration: 0.8,
             ease: "power3.out"
           },
-          "-=0.8"
+          "-=0.5"
         );
       }
 
@@ -126,18 +126,18 @@ const Hero = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
           {/* Desktop: side-by-side, Mobile: stacked */}
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8  items-center">
 
             {/* Left Content */}
-            <div className="w-full space-y-6 md:space-y-8 text-center lg:text-left">
+            <div className="w-full flex flex-col  gap-4 text-center lg:text-left pt-6">
               {/* Badge */}
-              <div ref={badgeRef} className="inline-flex items-center bg-gray-100 rounded-full px-3 md:px-4 py-1.5 md:py-2 mx-auto lg:mx-0">
+              <div ref={badgeRef} className="inline-flex items-center bg-gray-100 rounded-full px-3 md:px-4 py-1.5 md:py-2 mx-auto lg:mx-0 w-fit">
                 <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-900 rounded-full mr-1.5 md:mr-2"></span>
-                <span className="text-[10px] md:text-xs lg:text-sm font-manrope text-gray-700 tracking-wider">WELCOME TO RIDEN TECH</span>
+                <span className="text-xs md:text-sm   text-gray-700 tracking-wider">WELCOME TO RIDEN TECH</span>
               </div>
 
               {/* Main Heading */}
-              <h1 className="font-manrope text-4xl sm:text-5xl lg:text-6xl text-gray-900 leading-[1.1] md:leading-[1.2] font-semibold tracking-tight">
+              <h1 className="  text-4xl sm:text-5xl  lg:text-6xl xxl:text-7xl text-gray-900 leading-[1.1] md:leading-[1.2] font-semibold tracking-tight">
                 <span ref={el => headingLinesRef.current[0] = el} className="block">Leading the</span>
                 <span ref={el => headingLinesRef.current[1] = el} className="block text-gray-700">Evolution of</span>
                 <span ref={el => headingLinesRef.current[2] = el} className="block relative">
@@ -146,26 +146,29 @@ const Hero = () => {
               </h1>
 
               {/* Description */}
-              <p ref={descriptionRef} className="font-instrument text-base md:text-lg lg:text-lg text-gray-600 max-w-lg mx-auto lg:mx-0 leading-relaxed md:leading-loose">
+              <p ref={descriptionRef} className="font-instrument text-base md:text-md lg:text-lg text-gray-600 max-w-lg mx-auto lg:mx-0 leading-relaxed md:leading-loose">
                 We craft cutting-edge digital solutions that drive growth, enhance efficiency, and transform complex challenges into seamless digital experiences.
               </p>
 
               {/* CTA Buttons */}
-              <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center lg:justify-start pt-2 md:pt-4">
+              <div ref={buttonsRef} className="flex gap-2 justify-center pt-2 md:pt-4">
                 <Link
                   ref={button1Ref}
                   to="/contact"
-                  className="group inline-flex items-center justify-center space-x-2 bg-gray-900 text-white px-6 md:px-8 py-3.5 md:py-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 hover:shadow-lg hover:shadow-gray-900/20 font-manrope"
+                  className="group w-fit relative inline-flex items-center justify-center gap-1 bg-gray-900 text-white px-8 py-4 rounded-full sm:text-sm text-xs font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:shadow-gray-900/20   overflow-hidden"
                 >
-                  <span>Get Started</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <span className="relative z-10">Get Started</span>
+                  <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                 </Link>
                 <Link
                   ref={button2Ref}
                   to="/services"
-                  className="group inline-flex items-center justify-center space-x-2 bg-white text-gray-900 px-6 md:px-8 py-3.5 md:py-4 rounded-lg text-sm font-medium border border-gray-200 hover:border-gray-900 transition-all duration-300 hover:shadow-lg font-manrope"
+                  className="group w-fit relative inline-flex items-center justify-center gap-1 bg-gray-100 text-gray-900 px-8 py-4 rounded-full sm:text-sm text-xs font-medium  transition-all duration-300 hover:scale-[1.02] hover:shadow-md   overflow-hidden"
                 >
-                  <span>View Services</span>
+                  <span className="relative z-10">View Services</span>
+                  <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-200 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                 </Link>
               </div>
             </div>

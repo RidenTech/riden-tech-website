@@ -298,7 +298,7 @@ export default function ServicesPage() {
             if (number) tl.to(number, { opacity: 0.2, scale: 1, duration: 0.3, ease: "power2.out" }, 0);
             if (content) tl.to(content, { y: 0, duration: 0.3, ease: "power2.out" }, 0);
             if (title) tl.to(title, { color: "#111827", duration: 0.3, ease: "power1.out" }, 0);
-            if (button) tl.to(button, { backgroundColor: "#111827", scale: 1, duration: 0.3, ease: "power2.out" }, 0);
+            if (button) tl.to(button, { scale: 1, duration: 0.3, ease: "power2.out" }, 0);
             if (arrow) tl.to(arrow, { x: 0, duration: 0.3, ease: "power2.out" }, 0);
 
             tl.to(card, {
@@ -336,7 +336,7 @@ export default function ServicesPage() {
         if (number) tl.to(number, { opacity: 0.3, scale: 1.1, duration: 0.4, ease: "power2.out" }, 0);
         if (content) tl.to(content, { y: -5, duration: 0.4, ease: "power2.out" }, 0);
         if (title) tl.to(title, { color: "#4B5563", duration: 0.3, ease: "power1.out" }, 0);
-        if (button) tl.to(button, { backgroundColor: "#1F2937", scale: 1.05, duration: 0.3, ease: "back.out(1.2)" }, 0.1);
+        if (button) tl.to(button, { scale: 1.05, duration: 0.3, ease: "back.out(1.2)" }, 0.1);
         if (arrow) tl.to(arrow, { x: 5, duration: 0.3, ease: "power2.out" }, 0.1);
 
         tl.to(card, {
@@ -396,6 +396,7 @@ export default function ServicesPage() {
             <HeroSection
                 title="WHAT WE DO"
                 subtitle="Transforming ideas into exceptional digital experiences"
+                backgroundImage="/hero.jpg"
             />
 
             <section ref={sectionRef} className="pb-16 px-4 md:px-6 lg:px-8">
@@ -443,13 +444,14 @@ export default function ServicesPage() {
                                                     <div className="flex flex-col sm:flex-row items-start sm:items-center pt-4">
                                                         <Link
                                                             to={`/contact?service=${encodeURIComponent(service.title)}&id=${service.id}`}
-                                                            className="explore-button flex items-center gap-2 font-semibold text-xs bg-gray-900 text-white px-3 py-2 sm:px-4 sm:py-3 rounded-full hover:bg-gray-800 transition-colors duration-300"
+                                                            className="explore-button group relative flex items-center gap-2 font-semibold text-xs bg-gray-900 text-white px-3 py-2 sm:px-4 sm:py-3 rounded-full hover:shadow-xl transition-all duration-300 overflow-hidden"
                                                             onClick={(e) => e.stopPropagation()}
                                                         >
-                                                            <span className="font-manrope whitespace-nowrap">Contact Us</span>
-                                                            <div className="arrow-icon w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+                                                            <span className="relative z-10   whitespace-nowrap">Contact Us</span>
+                                                            <div className="relative z-10 arrow-icon w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1">
                                                                 <ArrowRight className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-gray-900" />
                                                             </div>
+                                                            <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                                                         </Link>
                                                     </div>
                                                 </div>

@@ -148,8 +148,8 @@ export default function Services() {
         gsap.fromTo(badgeRef.current,
           { y: 30, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true }
+            y: 0, opacity: 1, duration: 0.5, ease: "power3.out",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 90%", once: true }
           }
         );
       }
@@ -158,8 +158,8 @@ export default function Services() {
         gsap.fromTo(titleRef.current,
           { y: 50, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 1, ease: "power4.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true }
+            y: 0, opacity: 1, duration: 0.7, ease: "power4.out",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 90%", once: true }
           }
         );
       }
@@ -168,8 +168,8 @@ export default function Services() {
         gsap.fromTo(subtitleRef.current,
           { y: 40, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true }
+            y: 0, opacity: 1, duration: 0.6, delay: 0.1, ease: "power3.out",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 90%", once: true }
           }
         );
       }
@@ -180,8 +180,8 @@ export default function Services() {
         gsap.fromTo(items,
           { y: 50, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 60%", once: true }
+            y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: "power3.out",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 75%", once: true }
           }
         );
       }
@@ -199,12 +199,12 @@ export default function Services() {
           className="inline-flex items-center bg-gray-50 text-gray-700 rounded-full px-4 py-2 mb-6 border border-gray-200"
         >
           <Code2 className="w-4 h-4 mr-2 text-gray-500" />
-          <span className="text-xs font-manrope tracking-wider">Expertise</span>
+          <span className="text-xs   tracking-wider">Expertise</span>
         </div>
 
         <h2
           ref={titleRef}
-          className="font-manrope font-semibold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 leading-tight"
+          className="  font-semibold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 leading-tight"
         >
           Your Needs, <span className="text-gray-400">Our Expertise</span>
         </h2>
@@ -241,7 +241,7 @@ export default function Services() {
                 <div className="flex items-center gap-4 lg:contents">
                   {/* Number - Column 1 */}
                   <div className="lg:w-1/12 flex items-center">
-                    <span className={`font-manrope text-2xl md:text-3xl lg:text-4xl font-semibold transition-all duration-500 ${isOpen ? "text-white scale-110" : "text-gray-800"}`}>
+                    <span className={`  text-3xl md:text-4xl lg:text-5xl font-semibold transition-all duration-500 ${isOpen ? "text-white/80 -translate-x-4 text-5xl md:text-6xl lg:text-7xl -rotate-90 " : "text-gray-800 "}`}>
                       {String(idx + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -256,7 +256,7 @@ export default function Services() {
                     <div className={`hidden lg:block transition-all duration-700 overflow-hidden ${isOpen ? 'opacity-100 max-h-40 mt-1' : 'opacity-0 max-h-0'}`}>
                       <div className="flex flex-col gap-1">
                         {service.description.map((desc, i) => (
-                          <p key={i} className="font-manrope text-gray-400 lg:text-sm leading-relaxed max-w-lg">
+                          <p key={i} className="  text-gray-400 lg:text-sm leading-relaxed max-w-lg">
                             {desc}
                           </p>
                         ))}
@@ -279,7 +279,7 @@ export default function Services() {
               <div className={`lg:hidden w-full transition-all duration-700 overflow-hidden ${isOpen ? 'opacity-100 max-h-96 mt-4' : 'opacity-0 max-h-0'}`}>
                 <div className="flex flex-col gap-2 pl-12 md:pl-16">
                   {service.description.map((desc, i) => (
-                    <p key={i} className="font-manrope text-gray-400 text-xs md:text-sm leading-relaxed">
+                    <p key={i} className="  text-gray-400 text-xs md:text-sm leading-relaxed">
                       {desc}
                     </p>
                   ))}
@@ -287,9 +287,9 @@ export default function Services() {
               </div>
 
               {/* Image Reveal - Desktop Only */}
-              <div className="hidden lg:flex lg:w-[350px] justify-end overflow-hidden transition-all duration-700 ease-in-out pr-6">
+              <div className="hidden lg:flex   lg:w-[400px] justify-end overflow-hidden transition-all duration-700 ease-in-out pr-6">
                 <div
-                  className={`w-full aspect-video lg:aspect-auto lg:h-24 overflow-hidden rounded-xl relative transition-all duration-700 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 h-0'}`}
+                  className={`w-full aspect-video lg:aspect-auto  overflow-hidden rounded-xl relative transition-all duration-700 ${isOpen ? 'opacity-100 scale-100 h-48' : 'opacity-0 scale-95 h-32'}`}
                 >
                   <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -300,7 +300,7 @@ export default function Services() {
               <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden xl:block transition-all duration-300">
                 <ArrowUpRight
                   className={`w-8 h-8 transition-all duration-300 ${isOpen ? "text-white" : "text-gray-600"
-                    } ${isHovered ? "rotate-12 scale-110" : "rotate-0"
+                    } ${isHovered ? "rotate-90 scale-110" : "rotate-0"
                     }`}
                 />
               </div>

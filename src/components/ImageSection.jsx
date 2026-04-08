@@ -249,9 +249,10 @@ const ImageSection = () => {
 
         {/* CTA Button */}
         <div className="text-center mt-12">
-          <button className="group inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 hover:shadow-xl font-manrope">
-            <span>Learn More About Us</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          <button className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/20 font-manrope overflow-hidden">
+            <span className="relative z-10">Learn More About Us</span>
+            <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
           </button>
         </div>
 

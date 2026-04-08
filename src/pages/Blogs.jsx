@@ -87,8 +87,9 @@ export default function BlogPage() {
             <HeroSection
                 title="NEWS & BLOGS"
                 subtitle="Insights, stories, and updates from our team"
+                backgroundImage="/img-18.jpg"
             />
-            <section ref={sectionRef} className="-mt-16 pb-16 bg-white relative overflow-hidden">
+            <section ref={sectionRef} className="mt-10 pb-16 bg-white relative overflow-hidden">
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                     <div ref={filterRef} className="mb-12">

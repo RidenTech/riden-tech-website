@@ -132,12 +132,12 @@ export default function Blog() {
         gsap.from(elementsToAnimate, {
           y: isMobile ? 20 : 60,
           opacity: 0,
-          duration: isMobile ? 0.6 : 1,
-          stagger: isMobile ? 0.1 : 0.15,
+          duration: isMobile ? 0.4 : 0.7,
+          stagger: isMobile ? 0.08 : 0.1,
           ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
+            start: "top 90%",
             toggleActions: "play none none none"
           }
         });
@@ -148,12 +148,12 @@ export default function Blog() {
         gsap.from(statsRef.current, {
           y: isMobile ? 20 : 60,
           opacity: 0,
-          duration: isMobile ? 0.6 : 1,
-          stagger: 0.1,
+          duration: isMobile ? 0.4 : 0.7,
+          stagger: 0.08,
           ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
+            start: "top 90%",
             toggleActions: "play none none none"
           }
         });
@@ -191,12 +191,12 @@ export default function Blog() {
             opacity: 1,
             scale: 1,
             x: 0,
-            duration: isMobile ? 0.5 : 0.8,
-            stagger: isMobile ? 0.08 : 0.15,
+            duration: isMobile ? 0.4 : 0.7,
+            stagger: isMobile ? 0.05 : 0.1,
             ease: "power2.out",
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: "top 70%",
+              start: "top 85%",
               toggleActions: "play none none none"
             }
           }
@@ -261,11 +261,11 @@ export default function Blog() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-white relative py-16"
+      className="w-full bg-white relative pt-16 pb-8 z-10"
     >
       <div
         ref={pinContainerRef}
-        className={`w-full ${isMobile || isTablet ? 'py-0' : 'h-screen'} overflow-hidden relative`}
+        className={`w-full ${isMobile || isTablet ? 'py-0' : 'h-screen'} overflow-hidden relative bg-white`}
       >
         {/* Desktop Layout */}
         {!isMobile && !isTablet && (
@@ -281,13 +281,13 @@ export default function Blog() {
                 className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-full px-5 py-2.5 mb-6 shadow-lg w-fit"
               >
                 <Zap className="w-4 h-4 mr-2" />
-                <span className="text-sm font-manrope font-medium tracking-wide">LATEST NEWS</span>
+                <span className="text-sm   font-medium tracking-wide">LATEST NEWS</span>
               </div>
 
               {/* Title */}
               <h2
                 ref={titleRef}
-                className="font-manrope font-semibold text-5xl md:text-6xl text-gray-900 mb-4 leading-tight"
+                className="  font-semibold text-5xl md:text-6xl text-gray-900 mb-4 leading-tight"
               >
                 News &
                 <span className="text-gray-700"> Blogs</span>
@@ -306,11 +306,11 @@ export default function Blog() {
               <Link
                 ref={buttonRef}
                 to="/blogs"
-                className="group relative inline-flex items-center gap-3 bg-gray-900 text-white px-8 py-4 rounded-xl text-sm font-medium overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-gray-900/20 font-manrope w-fit"
+                className="group relative inline-flex w-[200px] items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:shadow-gray-900/20   overflow-hidden"
               >
                 <span className="relative z-10">View All News</span>
-                <ArrowUpRight className="relative z-10 w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                <ArrowUpRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </Link>
             </div>
 
@@ -342,7 +342,7 @@ export default function Blog() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
                     <div className="absolute top-4 right-4 z-10">
-                      <span className="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-gray-900 text-xs font-manrope font-semibold uppercase tracking-wider rounded-full shadow-lg border border-gray-200">
+                      <span className="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-gray-900 text-xs   font-semibold uppercase tracking-wider rounded-full shadow-lg border border-gray-200">
                         {post.category}
                       </span>
                     </div>
@@ -350,7 +350,7 @@ export default function Blog() {
 
                   {/* CONTENT */}
                   <div className="p-6 flex flex-col h-[220px]">
-                    <div className="flex items-center gap-4 mb-4 text-gray-500 text-sm font-manrope">
+                    <div className="flex items-center gap-4 mb-4 text-gray-500 text-sm  ">
                       <div className="flex items-center gap-1.5">
                         <Calendar className="w-4 h-4" />
                         <span>{post.day} {post.month}, {post.year}</span>
@@ -367,7 +367,7 @@ export default function Blog() {
 
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
                       <div className="flex items-center gap-1 text-gray-600 group-hover:text-gray-900 transition-colors duration-300">
-                        <span className="font-manrope text-sm font-medium">Read</span>
+                        <span className="  text-sm font-medium">Read</span>
                         <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                       </div>
                     </div>
@@ -389,12 +389,12 @@ export default function Blog() {
               className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-full px-5 py-2.5 mb-6 shadow-lg mx-auto w-fit"
             >
               <Zap className="w-4 h-4 mr-2" />
-              <span className="text-sm font-manrope font-medium tracking-wide">LATEST NEWS</span>
+              <span className="text-sm   font-medium tracking-wide">LATEST NEWS</span>
             </div>
 
             <h2
               ref={titleRef}
-              className="font-manrope font-semibold text-5xl md:text-6xl text-gray-900 mb-3 leading-tight"
+              className="  font-semibold text-5xl md:text-6xl text-gray-900 mb-3 leading-tight"
             >
               News & <span className="text-gray-700">Blogs</span>
             </h2>
@@ -469,7 +469,7 @@ export default function Blog() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
                       <div className="absolute top-3 left-3 z-10">
-                        <span className="px-2 py-1 bg-white/95 backdrop-blur-sm text-gray-800 text-xs font-manrope rounded-full shadow-sm">
+                        <span className="px-2 py-1 bg-white/95 backdrop-blur-sm text-gray-800 text-xs   rounded-full shadow-sm">
                           {post.category}
                         </span>
                       </div>
@@ -477,7 +477,7 @@ export default function Blog() {
 
                     {/* CONTENT */}
                     <div className="p-4 flex flex-col" style={{ height: "180px" }}>
-                      <div className="flex items-center gap-2 mb-2 text-gray-400 text-xs font-manrope">
+                      <div className="flex items-center gap-2 mb-2 text-gray-400 text-xs  ">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
                           <span>{post.day} {post.month}</span>
@@ -502,7 +502,7 @@ export default function Blog() {
                               className="w-full h-full object-cover"
                             />
                           </div>
-                          <span className="font-manrope text-xs text-gray-500 line-clamp-1">
+                          <span className="  text-xs text-gray-500 line-clamp-1">
                             {post.author}
                           </span>
                         </div>
@@ -521,10 +521,11 @@ export default function Blog() {
             <Link
               ref={mobileButtonRef}
               to="/blogs"
-              className="group inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-xl text-sm font-medium hover:bg-gray-800 transition-all duration-300 hover:shadow-lg font-manrope"
+              className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/20   overflow-hidden"
             >
-              View All Blogs
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <span className="relative z-10">View All Blogs</span>
+              <ArrowUpRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </Link>
           </div>
         </div>

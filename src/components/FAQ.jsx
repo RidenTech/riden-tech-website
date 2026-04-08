@@ -75,7 +75,7 @@ export default function FAQ() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 85%",
           end: "bottom 30%",
           toggleActions: "play none none none"
         }
@@ -98,7 +98,7 @@ export default function FAQ() {
             y: 0,
             opacity: 1,
             scale: 1,
-            duration: 1,
+            duration: 0.6,
             ease: "back.out(1.7)"
           }
         );
@@ -112,10 +112,10 @@ export default function FAQ() {
             y: 0,
             opacity: 1,
             scale: 1,
-            duration: 1.2,
+            duration: 0.8,
             ease: "power4.out"
           },
-          "-=0.6"
+          "-=0.4"
         );
       }
 
@@ -126,10 +126,10 @@ export default function FAQ() {
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
+            duration: 0.6,
             ease: "power3.out"
           },
-          "-=0.4"
+          "-=0.3"
         );
       }
 
@@ -146,8 +146,8 @@ export default function FAQ() {
             y: 0,
             opacity: 1,
             scale: 1,
-            duration: 0.8,
-            stagger: 0.15,
+            duration: 0.6,
+            stagger: 0.1,
             ease: "power3.out"
           },
           "-=0.2"
@@ -162,7 +162,7 @@ export default function FAQ() {
             y: 0,
             opacity: 1,
             scale: 1,
-            duration: 0.8,
+            duration: 0.6,
             ease: "back.out(1.4)"
           },
           "-=0.2"
@@ -316,17 +316,17 @@ export default function FAQ() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20">
-          <div className="flex flex-col space-y-8">
+          <div className="flex flex-col space-y-8 text-center lg:text-left">
             <div ref={headerRef}>
               <div ref={badgeRef} className="inline-flex items-center bg-gray-900 text-white rounded-full px-5 py-2 mb-6 shadow-md">
                 <HelpCircle className="w-4 h-4 mr-2" />
-                <span className="text-sm font-manrope font-medium tracking-wide uppercase">Questions</span>
+                <span className="text-sm   font-medium tracking-wide uppercase">Questions</span>
               </div>
-              <h2 ref={titleRef} className="font-manrope font-semibold text-4xl md:text-5xl text-gray-900 mb-4 leading-tight">
+              <h2 ref={titleRef} className="  font-semibold text-4xl md:text-5xl text-gray-900 mb-4 leading-tight">
                 Frequently Asked
                 <span className="text-gray-700 block mt-1">Questions</span>
               </h2>
-              <p ref={subtitleRef} className="font-instrument text-gray-600 max-w-md text-lg leading-relaxed">
+              <p ref={subtitleRef} className="text-base md:text-lg  text-gray-600 max-w-md leading-relaxed">
                 Everything you need to know about working with us and our innovative technology solutions.
               </p>
             </div>
@@ -335,15 +335,16 @@ export default function FAQ() {
               <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:scale-110 transition-transform duration-500">
                 <Mail className="w-24 h-24 text-gray-900" />
               </div>
-              <h3 className="font-manrope font-semibold text-2xl text-gray-900 mb-4 relative z-10">
+              <h3 className="  font-semibold text-2xl text-gray-900 mb-4 relative z-10">
                 Still Have More Questions?
               </h3>
-              <p className="font-instrument text-gray-600 mb-8 relative z-10">
+              <p className="  text-gray-600 mb-8 relative z-10">
                 If you&apos;re curious or need more info, feel free to reach out we&apos;re here to help!
               </p>
-              <Link to="/contact" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-4 rounded-xl font-manrope font-medium hover:bg-black transition-all duration-300 group/btn">
-                <span>Contact Us Now</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+              <Link to="/contact" className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/20   overflow-hidden">
+                <span className="relative z-10">Contact Us Now</span>
+                <ArrowUpRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </Link>
             </div>
           </div>
@@ -362,7 +363,7 @@ export default function FAQ() {
                   }}
                 >
                   <button onClick={() => toggleFAQ(index)} className="w-full px-6 py-6 flex items-center justify-between text-left group outline-none">
-                    <span className={`font-manrope font-semibold text-lg pr-8 transition-colors duration-300 ${isOpen ? 'text-gray-900' : 'text-gray-700 group-hover:text-black'}`}>
+                    <span className={`  font-semibold text-lg pr-8 transition-colors duration-300 ${isOpen ? 'text-gray-900' : 'text-gray-700 group-hover:text-black'}`}>
                       {faq.question}
                     </span>
                     <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${isOpen ? 'bg-gray-900 text-white rotate-180' : 'bg-gray-100 text-gray-500 group-hover:bg-gray-200'}`}>
@@ -372,7 +373,7 @@ export default function FAQ() {
                   <div ref={el => answersRef.current[index] = el} className="overflow-hidden opacity-0 hidden h-0">
                     <div className="px-6 pb-8">
                       <div className="h-px w-full bg-gray-100 mb-6"></div>
-                      <p className="font-instrument text-gray-600 leading-relaxed text-[17px]">
+                      <p className="  text-gray-600 leading-relaxed text-[17px]">
                         {faq.answer}
                       </p>
                     </div>

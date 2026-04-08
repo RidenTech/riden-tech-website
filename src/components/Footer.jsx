@@ -257,18 +257,17 @@ export default function Footer() {
                 </h2>
               </div>
 
-              {/* Right: Form */}
-              <div className="flex-shrink-0 w-full lg:max-w-xl">
-                <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex-shrink-0 w-full lg:max-w-xl mt-6 lg:mt-0">
+                <div className="flex items-center border border-white/20 rounded-full bg-white/5 backdrop-blur-sm max-w-md lg:max-w-none">
                   <input
                     type="email"
                     placeholder="jhon@example.com"
-                    className="flex-1 px-6 py-4 bg-transparent border border-gray-800 text-white placeholder-gray-600 focus:outline-none focus:border-gray-500 transition-all duration-300 font-['Manrope'] text-sm hover:border-gray-600"
+                    className="flex-1 min-w-0 px-4 md:px-6 py-3 bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm"
                   />
                   <button
                     onMouseEnter={handleSubscribeEnter}
                     onMouseLeave={handleSubscribeLeave}
-                    className="subscribe-btn group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-white/10 font-['Manrope'] text-sm font-medium"
+                    className="subscribe-btn shrink-0 rounded-full group relative inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 bg-white text-black overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-white/10 text-xs md:text-sm font-medium"
                   >
                     <span className="relative z-10">Subscribe</span>
                     <Send className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

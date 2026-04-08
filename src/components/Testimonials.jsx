@@ -306,7 +306,7 @@ export default function Testimonials() {
             className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-full px-5 py-2.5 mb-6 shadow-lg"
           >
             <Zap className="w-4 h-4 mr-2" />
-            <span className="text-sm font-manrope font-medium tracking-wide">CLIENT TESTIMONIALS</span>
+            <span className="text-sm   font-medium tracking-wide">CLIENT TESTIMONIALS</span>
           </div>
 
           {/* Titles with animation */}
@@ -368,7 +368,7 @@ export default function Testimonials() {
 
                       {/* Quote */}
                       <div className="flex-1 relative z-10">
-                        <p className="font-manrope text-gray-700 text-sm leading-relaxed line-clamp-4">
+                        <p className="  text-gray-700 text-sm leading-relaxed line-clamp-4">
                           "{testimonial.quote}"
                         </p>
                       </div>
@@ -380,7 +380,7 @@ export default function Testimonials() {
                             <h4 className="font-marcellus text-sm font-semibold text-gray-900">
                               {testimonial.author}
                             </h4>
-                            <p className="font-manrope text-xs text-gray-500">
+                            <p className="  text-xs text-gray-500">
                               {testimonial.role}
                             </p>
                           </div>
@@ -392,7 +392,7 @@ export default function Testimonials() {
                                 className="w-full h-full object-cover"
                               />
                             </div>
-                            <span className="font-manrope text-xs text-gray-500">
+                            <span className="  text-xs text-gray-500">
                               {testimonial.location}
                             </span>
                           </div>
@@ -410,10 +410,11 @@ export default function Testimonials() {
         <div ref={ctaRef} className="text-center mt-16">
           <Link
             to="/contact"
-            className="group inline-flex items-center space-x-2 bg-gray-900 text-white px-8 py-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 hover:shadow-lg font-manrope"
+            className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:shadow-gray-900/20   overflow-hidden"
           >
-            <span>Start Your Success Story</span>
-            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <span className="relative z-10">Start Your Success Story</span>
+            <ArrowUpRight className="relative z-10 w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
           </Link>
         </div>
       </div>

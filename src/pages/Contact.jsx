@@ -173,6 +173,7 @@ export default function ContactPage() {
                 <HeroSection
                     title="CONTACT US"
                     subtitle="Building a legacy of innovation and trust"
+                    backgroundImage="/img-4.jpg"
                 />
             </div>
         );
@@ -187,6 +188,7 @@ export default function ContactPage() {
             <HeroSection
                 title="CONTACT US"
                 subtitle="Building a legacy of innovation and trust"
+                backgroundImage="/img-4.jpg"
             />
 
             <section ref={sectionRef} className="py-16 md:py-20 px-4 md:px-6 lg:px-8">
@@ -276,10 +278,11 @@ export default function ContactPage() {
 
                                             <button
                                                 type="submit"
-                                                className="w-full bg-gray-900 text-white py-4 rounded-lg font-manrope font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2 group"
+                                                className="w-full bg-gray-900 text-white py-4 rounded-full font-manrope font-medium transition-all duration-300 flex items-center justify-center gap-2 group hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/20 overflow-hidden relative"
                                             >
-                                                <span>Send Message</span>
-                                                <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                                                <span className="relative z-10">Send Message</span>
+                                                <FiArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                                                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                                             </button>
 
                                             <p className="text-xs text-gray-500 text-center mt-4">

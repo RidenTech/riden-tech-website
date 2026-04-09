@@ -194,9 +194,9 @@ const SEOHelper = ({ blog }) => {
       <div className="space-y-1">
         {tips.map((tip, i) => (
           <div key={i} className={`text-xs flex items-center gap-1.5 ${tip.type === 'error' ? 'text-gray-900 font-medium' :
-              tip.type === 'warning' ? 'text-gray-700' :
-                tip.type === 'success' ? 'text-gray-600' :
-                  'text-gray-500'
+            tip.type === 'warning' ? 'text-gray-700' :
+              tip.type === 'success' ? 'text-gray-600' :
+                'text-gray-500'
             }`}>
             <span>•</span>
             {tip.msg}
@@ -679,8 +679,8 @@ const BlogCard = ({ blog, onEdit, onDelete, onView, index }) => {
             </span>
           )}
           <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${blog.status === 'published'
-              ? 'bg-gray-900 text-white border-gray-800'
-              : 'bg-gray-100 text-gray-700 border-gray-200'
+            ? 'bg-gray-900 text-white border-gray-800'
+            : 'bg-gray-100 text-gray-700 border-gray-200'
             }`}>
             {blog.status || 'draft'}
           </span>
@@ -834,9 +834,27 @@ const BlogManager = () => {
   const tabsRef = useRef(null);
   const editorRef = useRef(null);
 
-  // Load dummy blogs on mount and animate header
+  // Fetch blogs from DB
+  const fetchBlogs = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/blogs');
+      const data = await response.json();
+      if (response.ok) {
+        setBlogs(data);
+      } else {
+        addAlert('error', 'Failed to fetch blogs');
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      addAlert('error', 'Connection error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    setBlogs(dummyBlogs);
+    fetchBlogs();
 
     // Animate header
     if (headerRef.current) {
@@ -934,7 +952,7 @@ const BlogManager = () => {
     }
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
 
     if (!file) {
@@ -955,22 +973,36 @@ const BlogManager = () => {
 
     setUploadingImage(true);
 
-    // Simulate image upload with local URL
-    setTimeout(() => {
-      const localUrl = URL.createObjectURL(file);
+    const formData = new FormData();
+    formData.append('image', file);
 
-      if (editingBlog) {
-        setEditingBlog({ ...editingBlog, imageUrl: localUrl });
+    try {
+      const response = await fetch('http://localhost:5000/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const imageUrl = await response.text();
+        const fullUrl = `http://localhost:5000${imageUrl}`;
+
+        if (editingBlog) {
+          setEditingBlog({ ...editingBlog, imageUrl: fullUrl });
+        } else {
+          setNewBlog({ ...newBlog, imageUrl: fullUrl });
+        }
+
+        addAlert('success', 'Featured image uploaded successfully!');
       } else {
-        setNewBlog({ ...newBlog, imageUrl: localUrl });
+        addAlert('error', 'Upload failed');
       }
-
+    } catch (error) {
+      console.error('Upload error:', error);
+      addAlert('error', 'Connection error during upload');
+    } finally {
       setUploadingImage(false);
-      addAlert('success', 'Featured image uploaded successfully!');
-
-      // Reset file input
       e.target.value = '';
-    }, 1000);
+    }
   };
 
   const addTag = () => {
@@ -985,84 +1017,119 @@ const BlogManager = () => {
     setNewTag('');
   };
 
-  const saveBlog = (status = 'draft') => {
-    if (!newBlog.content.trim()) {
-      addAlert('error', 'Please add some content');
+  const saveBlog = async (status = 'draft') => {
+    if (!(editingBlog?.title || newBlog.title).trim()) {
+      addAlert('error', 'Please add a title');
       return;
     }
 
     setIsLoading(true);
+    const token = localStorage.getItem('admin-token');
 
     const blogData = {
-      id: Date.now(),
-      title: newBlog.title || 'Untitled',
-      content: newBlog.content,
-      excerpt: newBlog.excerpt || newBlog.content.substring(0, 150) + '...',
-      category: newBlog.category,
-      tags: newBlog.tags,
-      imageUrl: newBlog.imageUrl,
-      featured: newBlog.featured,
+      title: (editingBlog?.title || newBlog.title),
+      content: (editingBlog?.content || newBlog.content),
+      excerpt: (editingBlog?.excerpt || newBlog.excerpt || (editingBlog?.content || newBlog.content).substring(0, 150) + '...'),
+      category: (editingBlog?.category || newBlog.category),
+      tags: (editingBlog?.tags || newBlog.tags),
+      imageUrl: (editingBlog?.imageUrl || newBlog.imageUrl),
+      featured: (editingBlog?.featured || newBlog.featured),
       status,
-      author: 'Admin',
-      createdAt: new Date().toISOString(),
-      readTime: Math.max(1, Math.ceil(newBlog.content.split(/\s+/).length / 200)),
-      metaDescription: newBlog.metaDescription || newBlog.content.substring(0, 155) + '...'
+      readTime: Math.max(1, Math.ceil((editingBlog?.content || newBlog.content).split(/\s+/).length / 200)),
+      metaDescription: (editingBlog?.metaDescription || newBlog.metaDescription)
     };
 
-    // Simulate API call
-    setTimeout(() => {
-      setBlogs(prev => [blogData, ...prev]);
-      resetForm();
-      addAlert('success', status === 'published' ? 'Blog published!' : 'Saved as draft');
-      setShowPreview(false);
+    try {
+      const response = await fetch('http://localhost:5000/api/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(blogData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setBlogs(prev => [data, ...prev]);
+        resetForm();
+        addAlert('success', status === 'published' ? 'Blog published!' : 'Saved as draft');
+        setShowPreview(false);
+      } else {
+        addAlert('error', data.message || 'Failed to save blog');
+      }
+    } catch (error) {
+      console.error('Save error:', error);
+      addAlert('error', 'Connection error');
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
-  const updateBlog = () => {
+  const updateBlog = async () => {
     if (!editingBlog) return;
 
     setIsLoading(true);
+    const token = localStorage.getItem('admin-token');
 
-    const updatedBlog = {
-      ...editingBlog,
-      excerpt: editingBlog.excerpt || editingBlog.content.substring(0, 150) + '...',
-      readTime: Math.max(1, Math.ceil(editingBlog.content.split(/\s+/).length / 200)),
-      metaDescription: editingBlog.metaDescription || editingBlog.content.substring(0, 155) + '...'
-    };
+    try {
+      const response = await fetch(`http://localhost:5000/api/blogs/${editingBlog.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(editingBlog)
+      });
 
-    // Simulate API call
-    setTimeout(() => {
-      setBlogs(prev => prev.map(b =>
-        b.id === editingBlog.id ? updatedBlog : b
-      ));
+      const data = await response.json();
 
-      cancelEdit();
-      addAlert('success', 'Blog updated successfully!');
+      if (response.ok) {
+        setBlogs(prev => prev.map(b => b.id === data.id ? data : b));
+        cancelEdit();
+        addAlert('success', 'Blog updated successfully!');
+      } else {
+        addAlert('error', data.message || 'Failed to update blog');
+      }
+    } catch (error) {
+      console.error('Update error:', error);
+      addAlert('error', 'Connection error');
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
-  const deleteBlog = () => {
+  const deleteBlog = async () => {
     if (!deleteConfirm.blog) return;
 
     setIsLoading(true);
+    const token = localStorage.getItem('admin-token');
 
-    // Simulate API call
-    setTimeout(() => {
-      setBlogs(prev => prev.filter(b => b.id !== deleteConfirm.blog.id));
-      addAlert('success', `"${deleteConfirm.blog.title}" deleted successfully`);
+    try {
+      const response = await fetch(`http://localhost:5000/api/blogs/${deleteConfirm.blog.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
-      if (viewingBlog?.id === deleteConfirm.blog.id) {
-        setViewingBlog(null);
+      if (response.ok) {
+        setBlogs(prev => prev.filter(b => b.id !== deleteConfirm.blog.id));
+        addAlert('success', `"${deleteConfirm.blog.title}" deleted successfully`);
+        if (viewingBlog?.id === deleteConfirm.blog.id) setViewingBlog(null);
+        if (editingBlog?.id === deleteConfirm.blog.id) cancelEdit();
+      } else {
+        const data = await response.json();
+        addAlert('error', data.message || 'Failed to delete blog');
       }
-      if (editingBlog?.id === deleteConfirm.blog.id) {
-        cancelEdit();
-      }
-
+    } catch (error) {
+      console.error('Delete error:', error);
+      addAlert('error', 'Connection error');
+    } finally {
       setIsLoading(false);
       setDeleteConfirm({ isOpen: false, blog: null });
-    }, 500);
+    }
   };
 
   const handleEditClick = (blog) => {
@@ -1156,8 +1223,8 @@ const BlogManager = () => {
             <button
               onClick={() => setActiveTab('create')}
               className={`py-3 font-medium text-sm border-b-2 transition-colors flex items-center gap-2 ${activeTab === 'create'
-                  ? 'border-gray-900 text-gray-900'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                ? 'border-gray-900 text-gray-900'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
             >
               <FiPlus size={16} />
@@ -1166,8 +1233,8 @@ const BlogManager = () => {
             <button
               onClick={() => setActiveTab('manage')}
               className={`py-3 font-medium text-sm border-b-2 transition-colors flex items-center gap-2 ${activeTab === 'manage'
-                  ? 'border-gray-900 text-gray-900'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                ? 'border-gray-900 text-gray-900'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
             >
               <FiEdit2 size={16} />

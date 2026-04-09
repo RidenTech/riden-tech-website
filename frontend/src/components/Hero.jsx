@@ -102,7 +102,7 @@ const Hero = () => {
             duration: 0.8,
             ease: "power3.out"
           },
-          "-=0.5"
+          "-=0.8"
         );
       }
 
@@ -151,7 +151,7 @@ const Hero = () => {
               </p>
 
               {/* CTA Buttons */}
-              <div ref={buttonsRef} className="flex gap-2 justify-center pt-2 md:pt-4">
+              <div ref={buttonsRef} className="flex gap-2 justify-center lg:justify-start pt-2 md:pt-4">
                 <Link
                   ref={button1Ref}
                   to="/contact"
@@ -188,12 +188,13 @@ const Hero = () => {
                   }}
                 >
                   {/* IT-Related Image */}
-                  <div
-                    className="w-full h-full bg-cover bg-center"
-                    style={{
-                      backgroundImage: "url('/hero.jpg')"
-                    }}
-                  ></div>
+                  <img
+                    src="/hero.jpg"
+                    alt="RidenTech Innovation"
+                    loading="eager"
+                    fetchPriority="high"
+                    className="w-full h-full object-cover object-center block"
+                  />
                 </div>
               </div>
             </div>

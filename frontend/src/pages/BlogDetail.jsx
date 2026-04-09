@@ -1,16 +1,43 @@
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Calendar, MessageCircle, Clock, Twitter, Facebook, Linkedin, Copy, Check } from "lucide-react";
+import { ArrowLeft, Calendar, MessageCircle, Clock, Twitter, Facebook, Linkedin, Copy, Check, User } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { blogPosts } from "../data/blogData";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function BlogPostPage() {
     const { slug } = useParams();
-    const post = blogPosts.find(p => p.slug === slug);
+    const [post, setPost] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/blogs/${slug}`);
+                const data = await response.json();
+                if (response.ok) {
+                    setPost(data);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchPost();
+    }, [slug]);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return {
+            day: date.getDate(),
+            month: date.toLocaleString('default', { month: 'short' }),
+            year: date.getFullYear()
+        };
+    };
 
     const sectionRef = useRef(null);
     const titleRef = useRef(null);
@@ -114,6 +141,14 @@ export default function BlogPostPage() {
         setTimeout(() => setCopied(false), 2000);
     };
 
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-white">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+            </div>
+        );
+    }
+
     if (!post) {
         return (
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
@@ -126,14 +161,16 @@ export default function BlogPostPage() {
         );
     }
 
+    const postDate = formatDate(post.createdAt);
+
     return (
         <section ref={sectionRef} className="py-16 bg-white relative overflow-hidden">
             <Helmet>
                 <title>{post.title} | RidenTech Blog</title>
-                <meta name="description" content={post.excerpt} />
+                <meta name="description" content={post.metaDescription || post.excerpt} />
                 <meta property="og:title" content={`${post.title} | RidenTech Blog`} />
-                <meta property="og:description" content={post.excerpt} />
-                <meta property="og:image" content={post.image} />
+                <meta property="og:description" content={post.metaDescription || post.excerpt} />
+                <meta property="og:image" content={post.imageUrl} />
                 <meta property="og:type" content="article" />
             </Helmet>
             <div className="absolute inset-0 pointer-events-none">
@@ -154,7 +191,7 @@ export default function BlogPostPage() {
 
                 <div className="mb-4">
                     <span className="inline-block px-3 py-1 bg-gray-100 text-gray-800 text-sm font-manrope font-semibold uppercase tracking-wider rounded-full">
-                        {post.category}
+                        {post.category || 'General'}
                     </span>
                 </div>
 
@@ -165,21 +202,17 @@ export default function BlogPostPage() {
                 <div ref={metaRef} className="flex flex-wrap items-center gap-6 mb-8 text-gray-500">
                     <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
-                        <span className="text-sm font-manrope">{post.day} {post.month}, {post.year}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <MessageCircle className="w-4 h-4" />
-                        <span className="text-sm font-manrope">{post.comments} Comments</span>
+                        <span className="text-sm font-manrope">{postDate.day} {postDate.month}, {postDate.year}</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <Clock className="w-4 h-4" />
-                        <span className="text-sm font-manrope">{post.readTime}</span>
+                        <span className="text-sm font-manrope">{post.readTime} min read</span>
                     </div>
                 </div>
 
                 <div ref={imageRef} className="relative h-[400px] w-full mb-12 rounded-2xl overflow-hidden shadow-xl">
                     <img
-                        src={post.image}
+                        src={post.imageUrl || '/img-placeholder.jpg'}
                         alt={post.title}
                         className="w-full h-full object-cover"
                     />
@@ -192,18 +225,14 @@ export default function BlogPostPage() {
                 />
 
                 <div ref={authorRef} className="flex items-start gap-6 p-8 bg-gray-50 rounded-2xl mb-12">
-                    <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                        <img
-                            src={post.authorImage}
-                            alt={post.author}
-                            className="w-full h-full object-cover"
-                        />
+                    <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gray-900 flex items-center justify-center flex-shrink-0 text-white shadow-lg">
+                        <User size={32} />
                     </div>
                     <div>
-                        <h3 className="font-marcellus text-xl font-semibold text-gray-900 mb-1">{post.author}</h3>
-                        <p className="font-manrope text-sm text-gray-600 mb-3">{post.authorRole}</p>
-                        <p className="font-instrument text-gray-600 text-sm leading-relaxed">
-                            {post.authorBio}
+                        <h4 className="text-xl font-marcellus text-gray-900 mb-2">RidenTech Team</h4>
+                        <p className="text-gray-600 font-instrument text-sm leading-relaxed max-w-2xl">
+                            Our team of industry experts and technology enthusiasts is dedicated to sharing the latest insights,
+                            trends, and innovations in the digital landscape. We empower businesses to ride the wave of digital transformation.
                         </p>
                     </div>
                 </div>

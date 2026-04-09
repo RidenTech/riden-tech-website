@@ -4,7 +4,6 @@ import { ArrowRight, ArrowUpRight, Calendar, Clock, ChevronLeft, ChevronRight, Z
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
-import { blogPosts } from "../data/blogData";
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -22,14 +21,50 @@ export default function Blog() {
   const prevButtonRef = useRef(null);
   const nextButtonRef = useRef(null);
   const draggableInstance = useRef(null);
-
   const [scrollLength, setScrollLength] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const recentPosts = [...blogPosts].sort((a, b) => b.id - a.id).slice(0, 6);
 
+  const [blogs, setBlogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/blogs');
+        const data = await response.json();
+        if (response.ok) {
+          const published = data.filter(b => b.status === 'published');
+          setBlogs(published.slice(0, 6));
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return {
+      day: date.getDate(),
+      month: date.toLocaleString('default', { month: 'short' }),
+      year: date.getFullYear()
+    };
+  };
+
+  const stripHtml = (html) => {
+    if (!html) return "";
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  };
+
+  const recentPosts = blogs;
   const pinContainerRef = useRef(null);
 
   useEffect(() => {
@@ -323,57 +358,60 @@ export default function Blog() {
                 willChange: "transform"
               }}
             >
-              {recentPosts.map((post) => (
-                <Link
-                  to={`/blogs/${post.slug}`}
-                  key={post.id}
-                  className="group w-[380px] flex-shrink-0 bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden hover:-translate-y-2 hover:border-gray-400"
-                  style={{
-                    minWidth: "380px",
-                    maxWidth: "380px"
-                  }}
-                >
-                  {/* IMAGE */}
-                  <div className="relative h-56 w-full overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
-                    <div className="absolute top-4 right-4 z-10">
-                      <span className="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-gray-900 text-xs   font-semibold uppercase tracking-wider rounded-full shadow-lg border border-gray-200">
-                        {post.category}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* CONTENT */}
-                  <div className="p-6 flex flex-col h-[220px]">
-                    <div className="flex items-center gap-4 mb-4 text-gray-500 text-sm  ">
-                      <div className="flex items-center gap-1.5">
-                        <Calendar className="w-4 h-4" />
-                        <span>{post.day} {post.month}, {post.year}</span>
+              {recentPosts.map((post) => {
+                const date = formatDate(post.createdAt);
+                return (
+                  <Link
+                    to={`/blogs/${post.slug}`}
+                    key={post.id}
+                    className="group w-[380px] flex-shrink-0 bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden hover:-translate-y-2 hover:border-gray-400"
+                    style={{
+                      minWidth: "380px",
+                      maxWidth: "380px"
+                    }}
+                  >
+                    {/* IMAGE */}
+                    <div className="relative h-56 w-full overflow-hidden">
+                      <img
+                        src={post.imageUrl || '/img-placeholder.jpg'}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
+                      <div className="absolute top-4 right-4 z-10">
+                        <span className="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-gray-900 text-xs   font-semibold uppercase tracking-wider rounded-full shadow-lg border border-gray-200">
+                          {post.category || 'General'}
+                        </span>
                       </div>
                     </div>
 
-                    <h3 className="font-instrument text-xl font-semibold text-gray-900 mb-3 line-clamp-1 group-hover:text-gray-700 transition-colors duration-300">
-                      {post.title}
-                    </h3>
+                    {/* CONTENT */}
+                    <div className="p-6 flex flex-col h-[220px]">
+                      <div className="flex items-center gap-4 mb-4 text-gray-500 text-sm  ">
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-4 h-4" />
+                          <span>{date.day} {date.month}, {date.year}</span>
+                        </div>
+                      </div>
 
-                    <p className="font-instrument text-gray-600 text-sm mb-5 line-clamp-2 leading-relaxed flex-grow">
-                      {post.excerpt}
-                    </p>
+                      <h3 className="font-instrument text-xl font-semibold text-gray-900 mb-3 line-clamp-1 group-hover:text-gray-700 transition-colors duration-300">
+                        {post.title}
+                      </h3>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
-                      <div className="flex items-center gap-1 text-gray-600 group-hover:text-gray-900 transition-colors duration-300">
-                        <span className="  text-sm font-medium">Read</span>
-                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      <p className="font-instrument text-gray-600 text-sm mb-5 line-clamp-2 leading-relaxed flex-grow">
+                        {stripHtml(post.content)}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
+                        <div className="flex items-center gap-1 text-gray-600 group-hover:text-gray-900 transition-colors duration-300">
+                          <span className="  text-sm font-medium">Read</span>
+                          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}
@@ -449,69 +487,72 @@ export default function Blog() {
                   // REMOVED: transition property
                 }}
               >
-                {recentPosts.map((post) => (
-                  <Link
-                    to={`/blogs/${post.slug}`}
-                    key={post.id}
-                    className="group bg-white rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex-shrink-0"
-                    style={{
-                      width: isMobile ? "280px" : "300px",
-                      minWidth: isMobile ? "280px" : "300px",
-                      maxWidth: isMobile ? "280px" : "300px"
-                    }}
-                  >
-                    {/* IMAGE */}
-                    <div className="relative h-40 sm:h-44 w-full overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-                      <div className="absolute top-3 left-3 z-10">
-                        <span className="px-2 py-1 bg-white/95 backdrop-blur-sm text-gray-800 text-xs   rounded-full shadow-sm">
-                          {post.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* CONTENT */}
-                    <div className="p-4 flex flex-col" style={{ height: "180px" }}>
-                      <div className="flex items-center gap-2 mb-2 text-gray-400 text-xs  ">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          <span>{post.day} {post.month}</span>
-                        </div>
-                        <span>•</span>
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          <span>{post.readTime}</span>
-                        </div>
-                      </div>
-
-                      <h3 className="font-instrument text-base font-semibold text-gray-900 mb-2 line-clamp-1">
-                        {post.title}
-                      </h3>
-
-                      <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-50">
-                        <div className="flex items-center gap-1.5">
-                          <div className="relative w-5 h-5 rounded-full overflow-hidden">
-                            <img
-                              src={post.authorImage}
-                              alt={post.author}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          <span className="  text-xs text-gray-500 line-clamp-1">
-                            {post.author}
+                {recentPosts.map((post) => {
+                  const date = formatDate(post.createdAt);
+                  return (
+                    <Link
+                      to={`/blogs/${post.slug}`}
+                      key={post.id}
+                      className="group bg-white rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex-shrink-0"
+                      style={{
+                        width: isMobile ? "280px" : "300px",
+                        minWidth: isMobile ? "280px" : "300px",
+                        maxWidth: isMobile ? "280px" : "300px"
+                      }}
+                    >
+                      {/* IMAGE */}
+                      <div className="relative h-40 sm:h-44 w-full overflow-hidden">
+                        <img
+                          src={post.imageUrl || '/img-placeholder.jpg'}
+                          alt={post.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                        <div className="absolute top-3 left-3 z-10">
+                          <span className="px-2 py-1 bg-white/95 backdrop-blur-sm text-gray-800 text-xs   rounded-full shadow-sm">
+                            {post.category || 'General'}
                           </span>
                         </div>
-
-                        <ArrowRight className="w-3 h-3 text-gray-400 group-hover:text-gray-700 transition-colors duration-300" />
                       </div>
-                    </div>
-                  </Link>
-                ))}
+
+                      {/* CONTENT */}
+                      <div className="p-4 flex flex-col" style={{ height: "180px" }}>
+                        <div className="flex items-center gap-2 mb-2 text-gray-400 text-xs  ">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            <span>{date.day} {date.month}</span>
+                          </div>
+                          <span>•</span>
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            <span>{post.readTime} min</span>
+                          </div>
+                        </div>
+
+                        <h3 className="font-instrument text-base font-semibold text-gray-900 mb-2 line-clamp-1">
+                          {post.title}
+                        </h3>
+
+                        <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-50">
+                          <div className="flex items-center gap-1.5">
+                            <div className="relative w-5 h-5 rounded-full overflow-hidden">
+                              <img
+                                src="/img-admin-avatar.jpg"
+                                alt={post.author}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <span className="  text-xs text-gray-500 line-clamp-1">
+                              {post.author || 'RidenTech'}
+                            </span>
+                          </div>
+
+                          <ArrowRight className="w-3 h-3 text-gray-400 group-hover:text-gray-700 transition-colors duration-300" />
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>

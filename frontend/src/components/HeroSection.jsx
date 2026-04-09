@@ -103,9 +103,18 @@ export default function HeroSection({
     return (
         <section
             ref={sectionRef}
-            className={`w-full min-h-[60vh] lg:h-[75vh] flex items-center justify-center pt-24 pb-16 px-6 md:px-20 overflow-hidden relative ${backgroundImage ? "bg-cover bg-center" : "bg-white"}`}
-            style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : {}}
+            className={`w-full min-h-[60vh] lg:h-[75vh] flex items-center justify-center pt-24 pb-16 px-6 md:px-20 overflow-hidden relative ${!backgroundImage ? "bg-white" : ""}`}
         >
+            {/* Background Image lazily loaded */}
+            {backgroundImage && (
+                <img
+                    src={backgroundImage}
+                    alt="Hero Background"
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover z-0"
+                />
+            )}
+
             {/* Dark Overlay if background image exists */}
             {backgroundImage && (
                 <div className="absolute inset-0 bg-gray-900/60 z-0"></div>

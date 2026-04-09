@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, Search } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { blogPosts, categories } from "../data/blogData";
 import HeroSection from 'components/HeroSection';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,8 +13,43 @@ export default function BlogPage() {
     const rowsRef = useRef([]);
     const [activeCategory, setActiveCategory] = useState("All");
     const [searchQuery, setSearchQuery] = useState("");
+    const [blogs, setBlogs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [categories, setCategories] = useState(["All"]);
 
     useEffect(() => {
+        const fetchBlogs = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/blogs');
+                const data = await response.json();
+                if (response.ok) {
+                    const publishedBlogs = data.filter(b => b.status === 'published');
+                    setBlogs(publishedBlogs);
+
+                    // Extract unique categories
+                    const cats = ["All", ...new Set(publishedBlogs.map(b => b.category))];
+                    setCategories(cats.filter(c => c));
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchBlogs();
+    }, []);
+
+    const stripHtml = (html) => {
+        if (!html) return "";
+        const tmp = document.createElement("DIV");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    };
+
+    useEffect(() => {
+        if (isLoading) return;
+
         const ctx = gsap.context(() => {
             gsap.fromTo(filterRef.current,
                 { y: 30, opacity: 0 },
@@ -63,9 +97,9 @@ export default function BlogPage() {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, []);
+    }, [isLoading]);
 
-    const filteredPosts = blogPosts.filter(post => {
+    const filteredPosts = blogs.filter(post => {
         const matchesCategory = activeCategory === "All" || post.category === activeCategory;
         const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
@@ -81,6 +115,15 @@ export default function BlogPage() {
     };
 
     const rows = getRows(filteredPosts);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return {
+            day: date.getDate(),
+            month: date.toLocaleString('default', { month: 'short' }),
+            year: date.getFullYear()
+        };
+    };
 
     return (
         <div className="min-h-screen bg-white">
@@ -130,50 +173,53 @@ export default function BlogPage() {
                                     ref={el => rowsRef.current[rowIndex] = el}
                                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                                 >
-                                    {row.map((post) => (
-                                        <Link
-                                            to={`/blogs/${post.slug}`}
-                                            key={post.id}
-                                            className="group bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:border-gray-400"
-                                        >
-                                            <div className="relative h-48 w-full overflow-hidden">
-                                                <img
-                                                    src={post.image}
-                                                    alt={post.title}
-                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                />
-                                                <div className="absolute top-4 left-4">
-                                                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-manrope font-semibold uppercase tracking-wider rounded-full shadow-lg">
-                                                        {post.category}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <div className="p-6">
-                                                <div className="flex items-center gap-4 mb-3 text-gray-500">
-                                                    <div className="flex items-center gap-1">
-                                                        <Calendar className="w-4 h-4" />
-                                                        <span className="text-sm font-manrope">{post.day} {post.month}, {post.year}</span>
+                                    {row.map((post) => {
+                                        const date = formatDate(post.createdAt);
+                                        return (
+                                            <Link
+                                                to={`/blogs/${post.slug}`}
+                                                key={post.id}
+                                                className="group bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:border-gray-400"
+                                            >
+                                                <div className="relative h-48 w-full overflow-hidden">
+                                                    <img
+                                                        src={post.imageUrl || '/img-placeholder.jpg'}
+                                                        alt={post.title}
+                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                    />
+                                                    <div className="absolute top-4 left-4">
+                                                        <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-manrope font-semibold uppercase tracking-wider rounded-full shadow-lg">
+                                                            {post.category || 'General'}
+                                                        </span>
                                                     </div>
                                                 </div>
 
-                                                <h3 className="font-marcellus text-xl font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors duration-300">
-                                                    {post.title}
-                                                </h3>
+                                                <div className="p-6">
+                                                    <div className="flex items-center gap-4 mb-3 text-gray-500">
+                                                        <div className="flex items-center gap-1">
+                                                            <Calendar className="w-4 h-4" />
+                                                            <span className="text-sm font-manrope">{date.day} {date.month}, {date.year}</span>
+                                                        </div>
+                                                    </div>
 
-                                                <p className="font-instrument text-gray-600 text-sm mb-4 line-clamp-2">
-                                                    {post.excerpt}
-                                                </p>
+                                                    <h3 className="font-marcellus text-xl font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors duration-300">
+                                                        {post.title}
+                                                    </h3>
 
-                                                <div className="flex items-left justify-between mt-4 pt-4 border-t border-gray-100">
-                                                    <div className="flex items-center gap-1 text-gray-600 group-hover:text-gray-900 transition-colors duration-300">
-                                                        <span className="font-manrope text-sm font-medium">Read More</span>
-                                                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                                    <p className="font-instrument text-gray-600 text-sm mb-4 line-clamp-2">
+                                                        {stripHtml(post.content)}
+                                                    </p>
+
+                                                    <div className="flex items-left justify-between mt-4 pt-4 border-t border-gray-100">
+                                                        <div className="flex items-center gap-1 text-gray-600 group-hover:text-gray-900 transition-colors duration-300">
+                                                            <span className="font-manrope text-sm font-medium">Read More</span>
+                                                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    ))}
+                                            </Link>
+                                        );
+                                    })}
                                 </div>
                             ))}
                         </div>
@@ -183,7 +229,7 @@ export default function BlogPage() {
                         </div>
                     )}
 
-                    <div className="w-full mt-16 h-px bg-gray-200"></div>
+
                 </div>
             </section>
         </div>

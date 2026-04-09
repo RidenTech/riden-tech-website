@@ -1,0 +1,128 @@
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowRight, Sparkles } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function CTA() {
+  const sectionRef = useRef(null);
+  const contentRef = useRef(null);
+  const badgeRef = useRef(null);
+  const titleRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const buttonRef = useRef(null);
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const elements = [badgeRef.current, titleRef.current, descriptionRef.current, buttonRef.current].filter(Boolean);
+
+    // Reset to invisible before observing
+    gsap.set(elements, { opacity: 0, y: 30 });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Staggered reveal
+            gsap.to(elements, {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.15,
+              ease: "power3.out",
+              clearProps: "transform"
+            });
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    return () => {
+      observer.disconnect();
+      gsap.killTweensOf(elements);
+      gsap.set(elements, { clearProps: "all" });
+    };
+  }, [mounted, pathname]);
+
+  if (!mounted) return <section ref={sectionRef} className="relative py-20 md:py-24 overflow-hidden" />;
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative py-20 md:py-24 overflow-hidden"
+    >
+      {/* Fixed Background Image */}
+      <div
+        className="absolute inset-0 bg-fixed bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/cta.png')",
+        }}
+      />
+
+      {/* Gradient Overlay */}
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black/90"
+        style={{
+          opacity: 0.85,
+        }}
+      />
+
+      {/* Content */}
+      <div ref={contentRef} className="relative z-10 max-w-6xl mx-auto">
+        <div className="px-4 md:px-6 lg:px-8 text-center">
+          {/* Badge */}
+          <div
+            ref={badgeRef}
+            className="inline-flex items-center bg-accent/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-accent/20"
+          >
+            <Sparkles className="w-4 h-4 mr-2 text-accent" />
+            <span className="text-xs text-accent tracking-wider uppercase font-semibold">Work with us</span>
+          </div>
+
+          {/* Title */}
+          <h2
+            ref={titleRef}
+            className="  font-semibold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 leading-tight"
+          >
+            Let's Build <span className="text-transparent bg-clip-text bg-accent italic">Together</span>
+          </h2>
+
+          {/* Description */}
+          <p
+            ref={descriptionRef}
+            className="text-base md:text-lg  text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed"
+          >
+            Have a project idea or need expert guidance?
+            Our team is ready to help you bring your vision to life. </p>
+
+          {/* CTA Button */}
+          <div ref={buttonRef} className="flex justify-center">
+            <Link
+              to="/contact"
+              className="group relative inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full text-sm font-medium overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-white/30  "
+            >
+              <span className="relative z-10">Contact Us</span>
+              <ArrowRight className="relative z-10 w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

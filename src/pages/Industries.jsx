@@ -150,7 +150,7 @@ export default function IndustriesPage() {
                 backgroundImage="/img-1.jpg"
             />
 
-            <section ref={sectionRef} className=" pb-24 px-4 md:px-6 lg:px-8">
+            <section ref={sectionRef} className=" pt-10 pb-24 px-4 md:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col gap-4 md:gap-5 lg:gap-6">
                         {industries.map((industry, index) => {
@@ -200,7 +200,7 @@ export default function IndustriesPage() {
                                                     <div className="relative z-10 arrow-icon w-5 h-5 bg-white rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300">
                                                         <ArrowRight className="w-2.5 h-2.5 text-gray-900" />
                                                     </div>
-                                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent/90 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                                                 </Link>
                                                 <Link to={`/industries/${industry.slug}`} className="group relative inline-flex items-center gap-2 bg-gray-100 text-gray-900  px-3 py-2 sm:px-4 sm:py-3  rounded-full text-xs font-medium transition-all duration-300 hover:scale-[1.05] hover:shadow-lg overflow-hidden order-1 sm:order-2">
                                                     <span className="relative z-10 whitespace-nowrap">Read More</span>

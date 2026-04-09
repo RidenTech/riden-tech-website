@@ -486,7 +486,7 @@ const Navbar = () => {
                     <div className="flex items-center">
                       <Link
                         to={item.href}
-                        className={`py-2 text-sm font-medium relative group   ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                        className={`py-2 text-sm font-medium relative group   ${active ? 'text-accent' : 'text-gray-900 hover:text-accent/80'
                           }`}
                         onClick={() => handleDropdownLinkClick()}
                       >
@@ -497,7 +497,7 @@ const Navbar = () => {
                         onMouseEnter={() => handleNavItemEnter(item.title)}
                       >
                         <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-300 ${active ? 'text-gray-900' : 'text-gray-600'
+                          className={`w-4 h-4 transition-transform duration-300 ${active || activeDropdown === item.title ? 'text-accent' : 'text-gray-900 group-hover:text-accent/80'
                             } ${activeDropdown === item.title ? "rotate-180" : ""
                             }`}
                         />
@@ -506,19 +506,19 @@ const Navbar = () => {
                       {/* Hover underline effect - only shows on hover, not for active */}
                       <span
                         ref={el => underlineRefs.current[`${item.title}-desktop`] = el}
-                        className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0"
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-accent transform scale-x-0"
                         style={{ display: active ? 'none' : 'block' }}
                       ></span>
 
                       {/* Active indicator for items with dropdown */}
                       {active && (
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent"></span>
                       )}
                     </div>
                   ) : (
                     <Link
                       to={item.href}
-                      className={`relative px-0 py-2 text-sm font-medium group inline-block   ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                      className={`relative px-0 py-2 text-sm font-medium group inline-block   ${active ? 'text-accent' : 'text-gray-900 hover:text-accent/80'
                         }`}
                       onMouseEnter={() => {
                         if (window.innerWidth >= 1024 && !active) {
@@ -531,11 +531,11 @@ const Navbar = () => {
                       {/* Hover underline effect */}
                       <span
                         ref={el => underlineRefs.current[`${item.title}-desktop`] = el}
-                        className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0"
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-accent transform scale-x-0"
                       ></span>
                       {/* Active indicator */}
                       {active && (
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent"></span>
                       )}
                     </Link>
                   )}
@@ -554,7 +554,7 @@ const Navbar = () => {
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8">
                             {Object.entries(groupedServices).map(([category, services]) => (
                               <div key={category} className="mb-6">
-                                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3  ">
+                                <h3 className="text-xs font-semibold text-accent uppercase tracking-wider mb-3  ">
                                   {category}
                                 </h3>
                                 <div className="flex flex-col space-y-1">
@@ -569,11 +569,11 @@ const Navbar = () => {
                                       >
                                         <div className={`flex items-center justify-between py-1.5 px-2 -mx-2 rounded-sm transition-all duration-300 ${isServiceActive ? 'bg-gray-50' : 'hover:bg-gray-50'
                                           }`}>
-                                          <span className={`text-sm font-instrument ${isServiceActive ? 'text-gray-900 font-medium' : 'text-gray-700 group-hover/link:text-gray-900'
+                                          <span className={`text-sm   ${isServiceActive ? 'text-accent font-medium' : 'text-gray-900 group-hover/link:text-accent/80'
                                             }`}>
                                             {service.title}
                                           </span>
-                                          <ArrowRight className={`w-3 h-3 flex-shrink-0 transition-opacity duration-300 ${isServiceActive ? 'opacity-100 text-gray-900' : 'text-gray-400 opacity-0 group-hover/link:opacity-100'
+                                          <ArrowRight className={`w-3 h-3 flex-shrink-0 transition-opacity duration-300 ${isServiceActive ? 'opacity-100 text-accent' : 'text-gray-900 opacity-0 group-hover/link:opacity-100'
                                             }`} />
                                         </div>
                                       </Link>
@@ -596,11 +596,11 @@ const Navbar = () => {
                                 >
                                   <div className={`flex items-center justify-between py-1.5 px-2 -mx-2 rounded-sm transition-all duration-300 ${isIndustryActive ? 'bg-gray-50' : 'hover:bg-gray-50'
                                     }`}>
-                                    <span className={`text-sm font-instrument ${isIndustryActive ? 'text-gray-900 font-medium' : 'text-gray-700 group-hover:text-gray-900'
+                                    <span className={`text-sm   ${isIndustryActive ? 'text-accent font-medium' : 'text-gray-900 group-hover:text-accent/80'
                                       }`}>
                                       {industry.title}
                                     </span>
-                                    <ArrowRight className={`w-3 h-3 flex-shrink-0 transition-opacity duration-300 ${isIndustryActive ? 'opacity-100 text-gray-900' : 'text-gray-400 opacity-0 group-hover:opacity-100'
+                                    <ArrowRight className={`w-3 h-3 flex-shrink-0 transition-opacity duration-300 ${isIndustryActive ? 'opacity-100 text-accent' : 'text-gray-900 opacity-0 group-hover:opacity-100'
                                       }`} />
                                   </div>
                                 </Link>
@@ -622,18 +622,18 @@ const Navbar = () => {
                                     }`}>
                                     <div className="flex justify-between items-start">
                                       <div>
-                                        <div className={`text-sm font-instrument ${isDropItemActive ? 'text-gray-900 font-medium' : 'text-gray-900 group-hover:text-gray-700'
+                                        <div className={`text-sm   ${isDropItemActive ? 'text-accent font-medium' : 'text-gray-900 group-hover:text-accent/80'
                                           }`}>
                                           {dropItem.title}
                                         </div>
                                         {dropItem.description && (
-                                          <div className={`text-xs font-instrument ${isDropItemActive ? 'text-gray-600' : 'text-gray-500'
+                                          <div className={`text-xs   ${isDropItemActive ? 'text-accent' : 'text-gray-900'
                                             }`}>
                                             {dropItem.description}
                                           </div>
                                         )}
                                       </div>
-                                      <ArrowRight className={`w-4 h-4 flex-shrink-0 ml-2 mt-0.5 transition-opacity duration-300 ${isDropItemActive ? 'opacity-100 text-gray-900' : 'text-gray-400 opacity-0 group-hover:opacity-100'
+                                      <ArrowRight className={`w-4 h-4 flex-shrink-0 ml-2 mt-0.5 transition-opacity duration-300 ${isDropItemActive ? 'opacity-100 text-accent' : 'text-gray-900 opacity-0 group-hover:opacity-100'
                                         }`} />
                                     </div>
                                   </div>
@@ -654,12 +654,12 @@ const Navbar = () => {
           <div className="hidden lg:block" ref={ctaButtonRef} style={{ opacity: 0 }}>
             <Link
               to="/contact"
-              className="relative group inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-sm font-medium overflow-hidden transition-all duration-500 hover:shadow-[0_0_15px_rgba(223,145,20,0.5)]  "
+              className="relative group inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-sm font-medium overflow-hidden transition-all duration-500 hover:shadow-[0_0_15px_rgba(223,145,20,0.5)]"
               onMouseEnter={() => handleUnderlineHover('cta', true)}
               onMouseLeave={() => handleUnderlineHover('cta', false)}
             >
               <span className="relative z-10 font-semibold tracking-wide">Free Consultation</span>
-              <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" />
+              <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 " />
               <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent/90 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </Link>
           </div>
@@ -694,7 +694,7 @@ const Navbar = () => {
                       <div className="flex items-center justify-between">
                         <Link
                           to={item.href}
-                          className={`py-3 px-0 text-sm font-medium transition-all duration-300   ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                          className={`py-3 px-0 text-sm font-medium transition-all duration-300   ${active ? 'text-accent' : 'text-gray-900 hover:text-accent/80'
                             }`}
                           onClick={() => {
                             setIsOpen(false);
@@ -708,7 +708,7 @@ const Navbar = () => {
                           className="p-2"
                         >
                           <ChevronDown
-                            className={`w-4 h-5 transition-all duration-500 ${active ? 'text-gray-900' : 'text-gray-500'
+                            className={`w-4 h-5 transition-all duration-500 ${active || mobileExpanded[item.title] ? 'text-accent' : 'text-gray-900'
                               } ${mobileExpanded[item.title] ? "rotate-180" : ""
                               }`}
                           />
@@ -728,9 +728,9 @@ const Navbar = () => {
                               <Link
                                 key={dropItem.title}
                                 to={dropItem.href}
-                                className={`flex items-center justify-between py-2 pl-5 pr-2 text-sm rounded-lg transition-all duration-300 font-instrument ${isDropItemActive
-                                  ? 'text-gray-900 font-medium bg-gray-50'
-                                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                className={`flex items-center justify-between py-2 pl-5 pr-2 text-sm rounded-lg transition-all duration-300   ${isDropItemActive
+                                  ? 'text-accent font-medium bg-gray-50'
+                                  : 'text-gray-900 hover:text-accent/80 hover:bg-gray-50'
                                   }`}
                                 onClick={(e) => {
                                   if (item.title === "Services") {
@@ -743,7 +743,7 @@ const Navbar = () => {
                                 }}
                               >
                                 <span>{dropItem.title}</span>
-                                <ArrowRight className={`w-3 h-4 transition-transform duration-300 flex-shrink-0 ${isDropItemActive ? 'opacity-100 text-gray-900' : 'text-gray-400 group-hover:translate-x-1'
+                                <ArrowRight className={`w-3 h-4 transition-transform duration-300 flex-shrink-0 ${isDropItemActive ? 'opacity-100 text-accent' : 'text-gray-900 group-hover:translate-x-1'
                                   }`} />
                               </Link>
                             );
@@ -754,7 +754,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      className={`relative block py-3 px-0 text-sm font-medium transition-all duration-300   w-full ${active ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                      className={`relative block py-3 px-0 text-sm font-medium transition-all duration-300   w-full ${active ? 'text-accent' : 'text-gray-900 hover:text-accent/80'
                         }`}
                       onClick={() => setIsOpen(false)}
                     >

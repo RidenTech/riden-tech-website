@@ -148,7 +148,7 @@ export default function HeroSection({
                         <span className="relative z-10   font-semibold tracking-wide text-sm md:text-base">
                             Get in Touch
                         </span>
-                        <div className={`absolute inset-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${backgroundImage ? "bg-gradient-to-r from-gray-200 to-white" : "bg-gradient-to-r from-gray-900 to-black"}`} />
+                        <div className={`absolute inset-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${backgroundImage ? "bg-gradient-to-r from-gray-200 to-white" : "bg-gradient-to-r from-accent to-accent/90"}`} />
                         <svg
                             className="relative z-10 w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1"
                             fill="none"

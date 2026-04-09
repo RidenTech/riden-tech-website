@@ -399,7 +399,7 @@ export default function ServicesPage() {
                 backgroundImage="/hero.jpg"
             />
 
-            <section ref={sectionRef} className="pb-16 px-4 md:px-6 lg:px-8">
+            <section ref={sectionRef} className="pt-10 pb-24 px-4 md:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     {Object.entries(groupedServices).map(([category, categoryServices]) => (
                         <div key={category} className="mb-12 last:mb-0">
@@ -451,7 +451,7 @@ export default function ServicesPage() {
                                                             <div className="relative z-10 arrow-icon w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1">
                                                                 <ArrowRight className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-gray-900" />
                                                             </div>
-                                                            <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                                                            <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent/90 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                                                         </Link>
                                                     </div>
                                                 </div>

@@ -431,7 +431,7 @@ export default function Footer() {
         ref={bigLogoRef}
         className="w-full text-center mt-8 pb-4 pointer-events-none overflow-hidden"
       >
-        <h1 className="font-['Manrope'] font-black text-[15vw] md:text-[20vw] lg:text-[18vw] uppercase text-accent/10 hover:text-accent/20 leading-[0.8] tracking-tight select-none transition-all duration-500 hover:scale-105 inline-block">
+        <h1 className="font-['Manrope'] font-black text-[15vw] md:text-[20vw] lg:text-[18vw] uppercase text-accent/5 hover:text-accent/20 leading-[0.8] tracking-tight select-none transition-all duration-500 hover:scale-105 inline-block">
           RIDENTECH
         </h1>
       </div>

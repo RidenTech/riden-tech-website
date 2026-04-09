@@ -33,7 +33,7 @@ export default function Blog() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/blogs');
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
         const data = await response.json();
         if (response.ok) {
           const published = data.filter(b => b.status === 'published');

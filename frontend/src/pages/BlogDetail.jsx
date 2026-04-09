@@ -15,7 +15,7 @@ export default function BlogPostPage() {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/blogs/${slug}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${slug}`);
                 const data = await response.json();
                 if (response.ok) {
                     setPost(data);

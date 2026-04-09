@@ -838,7 +838,7 @@ const BlogManager = () => {
   const fetchBlogs = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/blogs');
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
       const data = await response.json();
       if (response.ok) {
         setBlogs(data);
@@ -977,14 +977,14 @@ const BlogManager = () => {
     formData.append('image', file);
 
     try {
-      const response = await fetch('http://localhost:5000/api/upload', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/upload`, {
         method: 'POST',
         body: formData,
       });
 
       if (response.ok) {
         const imageUrl = await response.text();
-        const fullUrl = `http://localhost:5000${imageUrl}`;
+        const fullUrl = `${process.env.REACT_APP_BACKEND_URL}${imageUrl}`;
 
         if (editingBlog) {
           setEditingBlog({ ...editingBlog, imageUrl: fullUrl });
@@ -1040,7 +1040,7 @@ const BlogManager = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/blogs', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1074,7 +1074,7 @@ const BlogManager = () => {
     const token = localStorage.getItem('admin-token');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/blogs/${editingBlog.id}`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${editingBlog.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -1107,7 +1107,7 @@ const BlogManager = () => {
     const token = localStorage.getItem('admin-token');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/blogs/${deleteConfirm.blog.id}`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${deleteConfirm.blog.id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

@@ -211,7 +211,7 @@ export default function Services() {
 
         <p
           ref={subtitleRef}
-          className="font-instrument text-gray-400 max-w-2xl mx-auto text-base md:text-lg"
+          className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg"
         >
           We deliver comprehensive digital solutions tailored to your business needs, combining innovation, technology, and strategic thinking to help you achieve scalable growth and long-term success.
         </p>
@@ -247,7 +247,7 @@ export default function Services() {
 
                   {/* Title - Column 2 Part 1 */}
                   <div className="lg:w-7/12 flex flex-col items-start justify-center">
-                    <h3 className={`font-instrument text-lg md:text-xl lg:text-2xl font-medium transition-all duration-500 ${isOpen ? "text-white" : "text-gray-400"}`}>
+                    <h3 className={`text-lg md:text-xl lg:text-2xl font-medium transition-all duration-500 ${isOpen ? "text-white" : "text-gray-400"}`}>
                       {service.title}
                     </h3>
 

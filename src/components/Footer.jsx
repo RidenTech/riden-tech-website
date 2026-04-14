@@ -250,9 +250,9 @@ export default function Footer() {
               <div className="flex-shrink-0 max-w-xl">
                 <div className="flex items-center gap-2 mb-4 bg-accent/10 w-fit px-3 py-1.5 rounded-full border border-accent/20">
                   <Sparkles className="sparkle-icon w-4 h-4 text-accent" />
-                  <span className="font-['Manrope'] text-xs text-accent tracking-wider font-semibold">NEWSLETTER</span>
+                  <span className=" text-xs text-accent tracking-wider font-semibold">NEWSLETTER</span>
                 </div>
-                <h2 className="font-['Manrope'] font-semibold text-2xl md:text-3xl lg:text-4xl text-white leading-tight">
+                <h2 className=" font-semibold text-2xl md:text-3xl lg:text-4xl text-white leading-tight">
                   Get the latest tips for social media growth and marketing straight to your inbox!
                 </h2>
               </div>
@@ -282,7 +282,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {/* Column 1: Quick Links */}
             <div ref={el => columnsRef.current[0] = el} className="space-y-4">
-              <h3 className="font-['Manrope'] text-gray-200 text-xs tracking-wider uppercase">QUICK LINKS</h3>
+              <h3 className=" text-accent text-xs tracking-wider uppercase">QUICK LINKS</h3>
               <ul className="space-y-2">
                 {[
                   { name: 'Home', href: '/' },
@@ -297,7 +297,7 @@ export default function Footer() {
                       to={item.href}
                       onMouseEnter={handleLinkEnter}
                       onMouseLeave={handleLinkLeave}
-                      className="footer-link font-['Manrope'] text-gray-400 hover:text-white transition-colors duration-300 text-sm inline-block"
+                      className="footer-link  text-gray-400 hover:text-white transition-colors duration-300 text-sm inline-block"
                     >
                       {item.name}
                     </Link>
@@ -308,7 +308,7 @@ export default function Footer() {
 
             {/* Column 2: Services - 6 main services (with hash navigation) */}
             <div ref={el => columnsRef.current[1] = el} className="space-y-4">
-              <h3 className="font-['Manrope'] text-gray-200 text-xs tracking-wider uppercase">Services</h3>
+              <h3 className=" text-accent text-xs tracking-wider uppercase">Services</h3>
               <ul className="space-y-2">
                 {services.map((service) => (
                   <li key={service.name}>
@@ -317,7 +317,7 @@ export default function Footer() {
                       onClick={(e) => handleServiceNavigation(e, service.href, service.name)}
                       onMouseEnter={handleLinkEnter}
                       onMouseLeave={handleLinkLeave}
-                      className="footer-link font-['Manrope'] text-gray-400 hover:text-white transition-colors duration-300 text-sm inline-block cursor-pointer"
+                      className="footer-link  text-gray-400 hover:text-white transition-colors duration-300 text-sm inline-block cursor-pointer"
                     >
                       {service.name}
                     </a>
@@ -328,7 +328,7 @@ export default function Footer() {
 
             {/* Column 3: Industries - 8 industries (with proper links) */}
             <div ref={el => columnsRef.current[2] = el} className="space-y-4">
-              <h3 className="font-['Manrope'] text-gray-200 text-xs tracking-wider uppercase">Industries</h3>
+              <h3 className=" text-accent text-xs tracking-wider uppercase">Industries</h3>
               <ul className="space-y-2">
                 {industries.map((industry) => (
                   <li key={industry.name}>
@@ -336,7 +336,7 @@ export default function Footer() {
                       to={industry.href}
                       onMouseEnter={handleLinkEnter}
                       onMouseLeave={handleLinkLeave}
-                      className="footer-link font-['Manrope'] text-gray-400 hover:text-white transition-colors duration-300 text-sm inline-block"
+                      className="footer-link  text-gray-400 hover:text-white transition-colors duration-300 text-sm inline-block"
                     >
                       {industry.name}
                     </Link>
@@ -347,7 +347,7 @@ export default function Footer() {
 
             {/* Column 4: Contact Info */}
             <div ref={el => columnsRef.current[3] = el} className="space-y-4">
-              <h3 className="font-['Manrope'] text-gray-200 text-xs tracking-wider">CONTACT US</h3>
+              <h3 className=" text-accent text-xs tracking-wider">CONTACT US</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3 group">
                   <Phone className="w-4 h-4 text-gray-100 flex-shrink-0 transition-transform duration-300 group-hover:rotate-12" />
@@ -355,7 +355,7 @@ export default function Footer() {
                     href="tel:+17787704050"
                     onMouseEnter={handleLinkEnter}
                     onMouseLeave={handleLinkLeave}
-                    className="footer-link font-['Manrope'] text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                    className="footer-link  text-gray-300 hover:text-white transition-colors duration-300 text-sm"
                   >
                     +1 778 770 4050
                   </a>
@@ -367,7 +367,7 @@ export default function Footer() {
                     href="mailto:team@riden.tech"
                     onMouseEnter={handleLinkEnter}
                     onMouseLeave={handleLinkLeave}
-                    className="footer-link font-['Manrope'] text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                    className="footer-link  text-gray-300 hover:text-white transition-colors duration-300 text-sm"
                   >
                     team@riden.tech
                   </a>
@@ -375,7 +375,7 @@ export default function Footer() {
 
                 <div className="flex items-start gap-3 group">
                   <MapPin className="w-4 h-4 text-gray-100 flex-shrink-0 mt-1 transition-transform duration-300 group-hover:rotate-12" />
-                  <span className="font-['Manrope'] text-gray-300 text-sm">
+                  <span className=" text-gray-300 text-sm">
                     15850 26 Ave, Surrey, BC V3Z 2N6, Canada
                   </span>
                 </div>
@@ -386,7 +386,7 @@ export default function Footer() {
           {/* Bottom Bar & Privacy Links */}
           <div className="border-t border-gray-800 pt-6 relative z-[60] pointer-events-auto">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-              <p className="font-['Manrope'] text-xs text-gray-400">
+              <p className=" text-xs text-gray-400">
                 © {currentYear} RidenTech. All rights reserved.
               </p>
 
@@ -431,7 +431,7 @@ export default function Footer() {
         ref={bigLogoRef}
         className="w-full text-center mt-8 pb-4 pointer-events-none overflow-hidden"
       >
-        <h1 className="font-['Manrope'] font-black text-[15vw] md:text-[20vw] lg:text-[18vw] uppercase text-accent/5 hover:text-accent/20 leading-[0.8] tracking-tight select-none transition-all duration-500 hover:scale-105 inline-block">
+        <h1 className=" font-semibold text-[15vw] md:text-[20vw] lg:text-[18vw] uppercase text-accent/5 hover:text-accent/20 leading-[0.8] tracking-tight select-none transition-all duration-500 hover:scale-105 inline-block">
           RIDENTECH
         </h1>
       </div>

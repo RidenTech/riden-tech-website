@@ -190,7 +190,7 @@ export default function IndustriesPage() {
                                                 {industry.title}
                                             </h3>
 
-                                            <p className="industry-description font-instrument text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+                                            <p className="industry-description  text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed mb-3">
                                                 {industry.description}
                                             </p>
 

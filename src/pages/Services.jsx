@@ -438,7 +438,7 @@ export default function ServicesPage() {
                                                     <h3 className="service-title   text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-900 mb-2">
                                                         {service.title}
                                                     </h3>
-                                                    <p className="font-instrument text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+                                                    <p className=" text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed mb-3">
                                                         {service.description}
                                                     </p>
                                                     <div className="flex flex-col sm:flex-row items-start sm:items-center pt-4">

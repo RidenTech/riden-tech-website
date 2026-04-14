@@ -144,7 +144,7 @@ const ImageSection = () => {
             className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-full px-5 py-2.5 mb-6 shadow-lg"
           >
             <Zap className="w-4 h-4 mr-2 text-gray-100" />
-            <span className="text-sm font-manrope font-medium tracking-wide">
+            <span className="text-sm  font-medium tracking-wide">
               ABOUT RIDEN TECH
             </span>
           </div>
@@ -152,13 +152,13 @@ const ImageSection = () => {
           {/* Titles */}
           <h2
             ref={titleRef}
-            className="font-manrope font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-2"
+            className=" font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-2"
           >
             We're on a Mission to
           </h2>
           <h2
             ref={subtitleRef}
-            className="font-manrope font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-6"
+            className=" font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-6"
           >
             Transform <span className="text-gray-400 ">Digital</span>
           </h2>
@@ -166,7 +166,7 @@ const ImageSection = () => {
           {/* Subheading */}
           <p
             ref={headingRef}
-            className="font-instrument text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
+            className=" text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
           >
             We're not just developers we're partners in your success, bringing together
             strategy, design, and technology to create exceptional digital experiences.
@@ -176,7 +176,7 @@ const ImageSection = () => {
         {/* Label */}
         <div ref={labelRef} className="flex items-center gap-2.5 mb-3.5 pl-0.5 absolute top-1/3 -mt-2 left-3">
           <div className="w-2 h-2 rounded-full bg-gray-400 shrink-0" />
-          <span className="text-xs font-manrope tracking-[0.2em] text-gray-500 uppercase">
+          <span className="text-xs  tracking-[0.2em] text-gray-500 uppercase">
             Our Workspace
           </span>
         </div>
@@ -217,7 +217,7 @@ const ImageSection = () => {
 
 
           {/* Image caption */}
-          <div className="absolute bottom-6 right-6 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-manrope border border-white/20">
+          <div className="absolute bottom-6 right-6 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm  border border-white/20">
             Modern Development Studio
           </div>
         </div>
@@ -231,12 +231,12 @@ const ImageSection = () => {
               className="bg-white rounded-xl p-8 text-center border border-gray-200 shadow-sm hover:shadow-xl hover:border-gray-400 transition-all duration-300 group"
             >
               <div
-                className="font-manrope text-5xl md:text-6xl text-gray-900 mb-2"
+                className=" text-5xl md:text-6xl text-gray-900 mb-2"
               >
                 {displayValues[index]}{stat.suffix}
               </div>
               <div
-                className="font-manrope text-sm text-gray-500 uppercase tracking-wider"
+                className=" text-sm text-gray-500 uppercase tracking-wider"
               >
                 {stat.label}
               </div>
@@ -249,7 +249,7 @@ const ImageSection = () => {
 
         {/* CTA Button */}
         <div className="text-center mt-12">
-          <button className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/20 font-manrope overflow-hidden">
+          <button className="group relative inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/20  overflow-hidden">
             <span className="relative z-10">Learn More About Us</span>
             <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent/90 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>

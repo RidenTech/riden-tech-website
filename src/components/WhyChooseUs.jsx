@@ -163,15 +163,15 @@ export default function WhyChooseUs() {
             ref={titleRef}
             className="  font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-2"
           >
-            We Build <span className="text-gray-400">Partnerships</span>
+            We Build<span className="text-accent italic "> Partnerships</span>
           </h2>
 
           {/* Subtitle */}
           <p
             ref={subtitleRef}
-            className="font-instrument text-xl text-gray-600 max-w-3xl mx-auto"
+            className=" text-xl text-gray-600 max-w-3xl mx-auto"
           >
-            Not just developers — we're your strategic partners in success, delivering excellence at every step.
+            Not just developers, we're your strategic partners in success, delivering excellence at every step.
           </p>
         </div>
 
@@ -187,8 +187,8 @@ export default function WhyChooseUs() {
               className="group bg-white rounded-2xl border border-gray-200 p-6 shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
             >
               {/* Icon */}
-              <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-gray-900 transition-colors duration-300">
-                <div className="text-gray-700 group-hover:text-white transition-colors duration-300">
+              <div className="w-14 h-14 bg-gray-900 rounded-xl flex items-center justify-center mb-5 group-hover:bg-accent transition-colors duration-300">
+                <div className="text-gray-100 group-hover:text-white transition-colors duration-300">
                   {reason.icon}
                 </div>
               </div>
@@ -199,7 +199,7 @@ export default function WhyChooseUs() {
               </h3>
 
               {/* Description */}
-              <p className="font-instrument text-gray-600 text-sm leading-relaxed">
+              <p className=" text-gray-600 text-sm leading-relaxed">
                 {reason.description}
               </p>
 

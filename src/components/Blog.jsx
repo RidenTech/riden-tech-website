@@ -329,7 +329,7 @@ export default function Blog() {
               {/* Description */}
               <p
                 ref={textRef}
-                className="font-instrument text-gray-600 max-w-md mb-10 leading-relaxed text-lg"
+                className=" text-gray-600 max-w-md mb-10 leading-relaxed text-lg"
               >
                 Discover strategies, ideas, and insights from our team to help your
                 brand grow, innovate, and succeed in the digital world.
@@ -392,11 +392,11 @@ export default function Blog() {
                         </div>
                       </div>
 
-                      <h3 className="font-instrument text-xl font-semibold text-gray-900 mb-3 line-clamp-1 group-hover:text-gray-700 transition-colors duration-300">
+                      <h3 className=" text-xl font-semibold text-gray-900 mb-3 line-clamp-1 group-hover:text-gray-700 transition-colors duration-300">
                         {post.title}
                       </h3>
 
-                      <p className="font-instrument text-gray-600 text-sm mb-5 line-clamp-2 leading-relaxed flex-grow">
+                      <p className=" text-gray-600 text-sm mb-5 line-clamp-2 leading-relaxed flex-grow">
                         {stripHtml(post.content)}
                       </p>
 
@@ -437,7 +437,7 @@ export default function Blog() {
 
             <p
               ref={textRef}
-              className="font-instrument text-gray-600 max-w-2xl mx-auto mb-6 leading-relaxed text-base"
+              className=" text-gray-600 max-w-2xl mx-auto mb-6 leading-relaxed text-base"
             >
               Discover expert insights, strategies, and ideas from our team to help your business grow, innovate, and succeed in the digital world.
             </p>
@@ -527,7 +527,7 @@ export default function Blog() {
                           </div>
                         </div>
 
-                        <h3 className="font-instrument text-base font-semibold text-gray-900 mb-2 line-clamp-1">
+                        <h3 className=" text-base font-semibold text-gray-900 mb-2 line-clamp-1">
                           {post.title}
                         </h3>
 

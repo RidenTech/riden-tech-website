@@ -152,8 +152,8 @@ export default function BlogPostPage() {
     if (!post) {
         return (
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-                <h1 className="font-marcellus text-4xl text-gray-900 mb-4">Post Not Found</h1>
-                <Link to="/blogs" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 font-manrope transition-colors">
+                <h1 className=" text-4xl text-gray-900 mb-4">Post Not Found</h1>
+                <Link to="/blogs" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900  transition-colors">
                     <ArrowLeft className="w-4 h-4" />
                     Back to Blog
                 </Link>
@@ -182,7 +182,7 @@ export default function BlogPostPage() {
                 <div className="mb-8">
                     <Link
                         to="/blogs"
-                        className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 font-manrope transition-colors group"
+                        className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900  transition-colors group"
                     >
                         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                         Back to Blog
@@ -190,23 +190,23 @@ export default function BlogPostPage() {
                 </div>
 
                 <div className="mb-4">
-                    <span className="inline-block px-3 py-1 bg-gray-100 text-gray-800 text-sm font-manrope font-semibold uppercase tracking-wider rounded-full">
+                    <span className="inline-block px-3 py-1 bg-gray-100 text-gray-800 text-sm  font-semibold uppercase tracking-wider rounded-full">
                         {post.category || 'General'}
                     </span>
                 </div>
 
-                <h1 ref={titleRef} className="font-marcellus text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-6 leading-tight">
+                <h1 ref={titleRef} className=" text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-6 leading-tight">
                     {post.title}
                 </h1>
 
                 <div ref={metaRef} className="flex flex-wrap items-center gap-6 mb-8 text-gray-500">
                     <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
-                        <span className="text-sm font-manrope">{postDate.day} {postDate.month}, {postDate.year}</span>
+                        <span className="text-sm ">{postDate.day} {postDate.month}, {postDate.year}</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <Clock className="w-4 h-4" />
-                        <span className="text-sm font-manrope">{post.readTime} min read</span>
+                        <span className="text-sm ">{post.readTime} min read</span>
                     </div>
                 </div>
 
@@ -220,7 +220,7 @@ export default function BlogPostPage() {
 
                 <div
                     ref={contentRef}
-                    className="prose prose-lg max-w-none font-instrument text-gray-700 mb-12"
+                    className="prose prose-lg max-w-none  text-gray-700 mb-12"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                 />
 
@@ -229,8 +229,8 @@ export default function BlogPostPage() {
                         <User size={32} />
                     </div>
                     <div>
-                        <h4 className="text-xl font-marcellus text-gray-900 mb-2">RidenTech Team</h4>
-                        <p className="text-gray-600 font-instrument text-sm leading-relaxed max-w-2xl">
+                        <h4 className="text-xl  text-gray-900 mb-2">RidenTech Team</h4>
+                        <p className="text-gray-600  text-sm leading-relaxed max-w-2xl">
                             Our team of industry experts and technology enthusiasts is dedicated to sharing the latest insights,
                             trends, and innovations in the digital landscape. We empower businesses to ride the wave of digital transformation.
                         </p>
@@ -238,7 +238,7 @@ export default function BlogPostPage() {
                 </div>
 
                 <div ref={shareRef} className="flex items-center justify-between pt-8 border-t border-gray-200">
-                    <span className="font-manrope text-sm font-medium text-gray-700">Share this article:</span>
+                    <span className=" text-sm font-medium text-gray-700">Share this article:</span>
                     <div className="flex items-center gap-3">
                         <a
                             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`}

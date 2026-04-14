@@ -18,7 +18,6 @@ const AboutUs = () => {
   const ctaRef = useRef(null);
   const borderLineRef = useRef(null);
   const contentWrapperRef = useRef(null);
-  const [clipPath, setClipPath] = useState("");
 
   // Features data from your input
   const features = [
@@ -51,20 +50,8 @@ const AboutUs = () => {
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
-    // Set responsive clip path based on screen size
-    const updateClipPath = () => {
-      if (window.innerWidth < 768) {
-        setClipPath("path('M 10,20 L 100,20 A 10,10 0,0,0 110,10 L 110,10 A 10,10 0,0,1 120,0 L 260,0 A 10,10 0,0,1 270,10 L 270,235 A 10,10 0,0,1 260,245 L 10,245 A 10,10 0,0,1 0,235 L 0,30 A 10,10 0,0,1 10,20 Z')");
-      } else if (window.innerWidth < 1024) {
-        setClipPath("path('M 15,30 L 150,30 A 15,15 0,0,0 165,15 L 165,15 A 15,15 0,0,1 180,0 L 390,0 A 15,15 0,0,1 405,15 L 405,352 A 15,15 0,0,1 390,367 L 15,367 A 15,15 0,0,1 0,352 L 0,45 A 15,15 0,0,1 15,30 Z')");
-      } else {
-        setClipPath("path('M 20,40 L 200,40 A 20,20 0,0,0 220,20 L 220,20 A 20,20 0,0,1 240,0 L 520,0 A 20,20 0,0,1 540,20 L 540,470 A 20,20 0,0,1 520,490 L 20,490 A 20,20 0,0,1 0,470 L 0,60 A 20,20 0,0,1 20,40 Z')");
-      }
-    };
+    window.addEventListener('resize', () => { }); // Placeholder to match structure if needed, but not really needed anymore
 
-    updateClipPath();
-    window.addEventListener('resize', updateClipPath);
 
     const ctx = gsap.context(() => {
       // Set initial states
@@ -222,7 +209,6 @@ const AboutUs = () => {
       ScrollTrigger.getAll().forEach(t => {
         if (t.trigger === sectionRef.current) t.kill(true);
       });
-      window.removeEventListener('resize', updateClipPath);
     };
   }, [mounted]);
 
@@ -275,10 +261,10 @@ const AboutUs = () => {
           </div>
 
           {/* Titles with animation */}
-          <h2 ref={titleRef} className="    text-5xl md:text-6xl text-gray-900 font-semibold mb-4 opacity-0">
+          <h2 ref={titleRef} className="  font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 ">
             Your Success,
             <span className="relative">
-              Our  <span className="text-gray-400 "> Priority.</span>
+              Our  <span className="text-accent italic ">Priority.</span>
             </span>
           </h2>
         </div>
@@ -286,12 +272,13 @@ const AboutUs = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 lg:items-stretch">
           <div className="relative order-2 lg:order-1 flex items-center">
 
-            <div className="relative w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px] aspect-[1.1/1] mx-auto">
+            <div className="relative w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] aspect-[1.1/1] mx-auto">
               <div
                 ref={imageRef}
                 className="absolute inset-0 w-full h-full shadow-2xl"
                 style={{
-                  clipPath: clipPath,
+                  clipPath: 'url(#aboutUsClipPath)',
+                  WebkitClipPath: 'url(#aboutUsClipPath)',
                 }}
               >
                 <div
@@ -356,6 +343,15 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+
+      {/* Responsive SVG ClipPath Definition */}
+      <svg className="absolute w-0 h-0" aria-hidden="true">
+        <defs>
+          <clipPath id="aboutUsClipPath" clipPathUnits="objectBoundingBox">
+            <path d="M 0.037 0.082 L 0.37 0.082 A 0.037 0.041 0 0 0 0.407 0.041 L 0.407 0.041 A 0.037 0.041 0 0 1 0.444 0 L 0.963 0 A 0.037 0.041 0 0 1 1 0.041 L 1 0.959 A 0.037 0.041 0 0 1 0.963 1 L 0.037 1 A 0.037 0.041 0 0 1 0 0.959 L 0 0.122 A 0.037 0.041 0 0 1 0.037 0.082 Z" />
+          </clipPath>
+        </defs>
+      </svg>
     </section>
   );
 };

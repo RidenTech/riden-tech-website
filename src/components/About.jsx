@@ -219,7 +219,7 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12  items-center">
           {/* Left Side - Image with Responsive Clip Path */}
           <div className="relative order-2 md:order-1">
-            <div className="relative w-full max-w-[250px] sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px] aspect-[1.1/1] mx-auto">
+            <div className="relative w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] aspect-[1.1/1] mx-auto">
               <div
                 ref={imageRef}
                 className="absolute inset-0 w-full h-full shadow-2xl"
@@ -242,10 +242,10 @@ const About = () => {
           <div className="order-1 md:order-2 space-y-6 text-center lg:text-left">
             {/* Description Text */}
             <div ref={descriptionRef} className="space-y-4">
-              <p className="font-instrument text-base text-gray-600 leading-relaxed">
+              <p className=" text-base text-gray-600 leading-relaxed">
                 At RidenTech, we believe great software is built through strong collaboration. Our team combines technical expertise with creative problem-solving to deliver solutions that aren’t just functional they’re exceptional.
               </p>
-              <p className="font-instrument text-base text-gray-600 leading-relaxed">
+              <p className=" text-base text-gray-600 leading-relaxed">
                 We take the time to understand your vision, challenges, and goals. Then we get to work, building high-quality products that create real impact for your business.
               </p>
             </div>
@@ -261,7 +261,7 @@ const About = () => {
                   <Users className="w-8 h-8 text-accent" />
                 </div>
                 <div className="  text-sm font-semibold text-gray-900">EXPERT TEAM</div>
-                <div className="font-instrument text-xs text-gray-500 mt-1">Skilled professionals</div>
+                <div className=" text-xs text-gray-500 mt-1">Skilled professionals</div>
               </div>
 
               {/* Fast Delivery */}
@@ -273,7 +273,7 @@ const About = () => {
                   <Rocket className="w-8 h-8 text-accent" />
                 </div>
                 <div className="  text-sm font-semibold text-gray-900">FAST DELIVERY</div>
-                <div className="font-instrument text-xs text-gray-500 mt-1">Quick turnaround</div>
+                <div className=" text-xs text-gray-500 mt-1">Quick turnaround</div>
               </div>
 
               {/* Client Satisfaction */}
@@ -285,7 +285,7 @@ const About = () => {
                   <Star className="w-8 h-8 text-accent" />
                 </div>
                 <div className="  text-sm font-semibold text-gray-900">SATISFACTION</div>
-                <div className="font-instrument text-xs text-gray-500 mt-1">Happy clients</div>
+                <div className=" text-xs text-gray-500 mt-1">Happy clients</div>
               </div>
             </div>
 

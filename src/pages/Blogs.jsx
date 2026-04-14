@@ -139,8 +139,8 @@ export default function BlogPage() {
                                     <button
                                         key={category}
                                         onClick={() => setActiveCategory(category)}
-                                        className={`px-4 py-2 rounded-full text-sm font-manrope font-medium transition-all duration-300 ${activeCategory === category
-                                            ? "bg-gray-900 text-white"
+                                        className={`px-4 py-2 rounded-full text-sm  font-medium transition-all duration-300 ${activeCategory === category
+                                            ? "bg-accent     text-white"
                                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                                             }`}
                                     >
@@ -155,7 +155,7 @@ export default function BlogPage() {
                                     placeholder="Search articles..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full px-4 py-2 pl-10 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 font-manrope text-gray-900"
+                                    className="w-full px-4 py-2 pl-10 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400  text-gray-900"
                                 />
                                 <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-500" />
                             </div>
@@ -185,7 +185,7 @@ export default function BlogPage() {
                                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                     />
                                                     <div className="absolute top-4 left-4">
-                                                        <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-manrope font-semibold uppercase tracking-wider rounded-full shadow-lg">
+                                                        <span className="px-3 py-1 bg-accent backdrop-blur-sm text-white text-xs  font-semibold uppercase tracking-wider rounded-full shadow-lg">
                                                             {post.category || 'General'}
                                                         </span>
                                                     </div>
@@ -195,22 +195,22 @@ export default function BlogPage() {
                                                     <div className="flex items-center gap-4 mb-3 text-gray-500">
                                                         <div className="flex items-center gap-1">
                                                             <Calendar className="w-4 h-4" />
-                                                            <span className="text-sm font-manrope">{date.day} {date.month}, {date.year}</span>
+                                                            <span className="text-sm ">{date.day} {date.month}, {date.year}</span>
                                                         </div>
                                                     </div>
 
-                                                    <h3 className="font-marcellus text-xl font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors duration-300">
+                                                    <h3 className=" text-xl font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors duration-300">
                                                         {post.title}
                                                     </h3>
 
-                                                    <p className="font-instrument text-gray-600 text-sm mb-4 line-clamp-2">
+                                                    <p className=" text-gray-600 text-sm mb-4 line-clamp-2">
                                                         {stripHtml(post.content)}
                                                     </p>
 
                                                     <div className="flex items-left justify-between mt-4 pt-4 border-t border-gray-100">
-                                                        <div className="flex items-center gap-1 text-gray-600 group-hover:text-gray-900 transition-colors duration-300">
-                                                            <span className="font-manrope text-sm font-medium">Read More</span>
-                                                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                                        <div className="flex items-center gap-1  transition-colors duration-300">
+                                                            <span className=" text-accent text-sm font-medium">Read More</span>
+                                                            <ArrowRight className=" text-accent w-4 h-4 transition-transform group-hover:translate-x-1" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -222,7 +222,7 @@ export default function BlogPage() {
                         </div>
                     ) : (
                         <div className="text-center py-20">
-                            <p className="font-instrument text-xl text-gray-500">No articles found matching your criteria.</p>
+                            <p className=" text-xl text-gray-500">No articles found matching your criteria.</p>
                         </div>
                     )}
 

@@ -130,7 +130,7 @@ const AdminLogin = () => {
                         <div className="flex justify-between items-center">
                             <div className="flex items-center space-x-2">
                                 <LuSparkles className="text-2xl text-white" />
-                                <span className="font-['Marcellus'] text-xl">Admin Dashboard</span>
+                                <span className=" text-xl">Admin Dashboard</span>
                             </div>
                             <button
                                 onClick={handleLogout}
@@ -169,7 +169,7 @@ const AdminLogin = () => {
                     <div className="inline-block p-3 bg-gradient-to-br from-gray-900/5 to-gray-600/5 rounded-2xl mb-4 border border-gray-100">
                         <LuSparkles className="text-3xl text-gray-900" />
                     </div>
-                    <h1 className="font-['Marcellus'] text-3xl text-gray-900 mb-2">
+                    <h1 className=" text-3xl text-gray-900 mb-2">
                         Admin <span className="text-gray-500">Access</span>
                     </h1>
                     <p className="text-gray-500 text-sm">

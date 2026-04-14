@@ -146,7 +146,7 @@ const Hero = () => {
               </h1>
 
               {/* Description */}
-              <p ref={descriptionRef} className="font-instrument text-base md:text-md lg:text-lg text-gray-600 max-w-lg mx-auto lg:mx-0 leading-relaxed md:leading-loose">
+              <p ref={descriptionRef} className="text-base md:text-md lg:text-lg text-gray-600 max-w-lg mx-auto lg:mx-0 leading-relaxed md:leading-loose">
                 We craft cutting-edge digital solutions that drive growth, enhance efficiency, and transform complex challenges into seamless digital experiences.
               </p>
 

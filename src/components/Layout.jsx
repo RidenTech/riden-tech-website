@@ -29,7 +29,7 @@ export default function Layout({ children }) {
                 <meta name="apple-mobile-web-app-title" content="RidenTech" />
             </Helmet>
 
-            <div className="font-instrument antialiased">
+            <div className=" antialiased">
                 <Navbar />
                 <main className={isHomePage ? "" : "pt-20"}>{children}</main>
                 <CTA />

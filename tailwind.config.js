@@ -7,7 +7,11 @@ module.exports = {
         extend: {
             colors: {
                 accent: 'rgb(223, 145, 20)',
-            }
+            },
+            fontFamily: {
+                sans: ['Poppins', 'sans-serif'],
+                poppins: ['Poppins', 'sans-serif'],
+            },
         },
     },
     plugins: [],

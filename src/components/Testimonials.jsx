@@ -310,17 +310,17 @@ export default function Testimonials() {
           </div>
 
           {/* Titles with animation */}
-          <h2 ref={titleRef} className="font-marcellus text-5xl md:text-6xl text-gray-900 mb-4">
+          <h2 ref={titleRef} className=" text-5xl md:text-6xl text-gray-900 mb-4">
             What Our Clients Say
           </h2>
-          <h2 ref={subtitleRef} className="font-marcellus text-5xl md:text-6xl text-gray-900 mb-6">
+          <h2 ref={subtitleRef} className=" text-5xl md:text-6xl text-gray-900 mb-6">
             <span className="relative">
               About Riden Tech
             </span>
           </h2>
 
           {/* Heading with animation */}
-          <p ref={headingRef} className="font-instrument text-xl text-gray-600 max-w-2xl mx-auto">
+          <p ref={headingRef} className=" text-xl text-gray-600 max-w-2xl mx-auto">
             Real stories from the people and companies we've helped transform through
             innovative technology solutions and dedicated partnership.
           </p>
@@ -377,7 +377,7 @@ export default function Testimonials() {
                       <div className="pt-4 border-t border-gray-100 mt-4 relative z-10">
                         <div className="flex items-center justify-between">
                           <div>
-                            <h4 className="font-marcellus text-sm font-semibold text-gray-900">
+                            <h4 className=" text-sm font-semibold text-gray-900">
                               {testimonial.author}
                             </h4>
                             <p className="  text-xs text-gray-500">

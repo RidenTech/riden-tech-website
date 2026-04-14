@@ -194,13 +194,13 @@ export default function ContactPage() {
             <section ref={sectionRef} className="py-16 md:py-20 px-4 md:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12">
-                        <h2 ref={titleRef} className="font-marcellus text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4">
+                        <h2 ref={titleRef} className=" font-semibold text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-4">
                             Get in{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">
+                            <span className="text-accent italic ">
                                 Touch
                             </span>
                         </h2>
-                        <p ref={subtitleRef} className="font-instrument text-gray-600 max-w-2xl mx-auto">
+                        <p ref={subtitleRef} className=" text-gray-600 max-w-2xl mx-auto">
                             Have a project in mind? We'd love to hear about it. Fill out the form and we'll get back to you within 24 hours.
                         </p>
                     </div>
@@ -209,12 +209,12 @@ export default function ContactPage() {
                         <div className="lg:col-span-7">
                             <div
                                 ref={formRef}
-                                className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden"
+                                className="bg-accent rounded-2xl shadow-xl border border-gray-200 overflow-hidden"
                             >
-                                <div className="p-6 bg-black">
+                                <div className="p-6 bg-accent">
                                     <div className="flex items-center gap-3">
                                         <FiSend className="w-6 h-6 text-white" />
-                                        <h3 className="font-marcellus text-xl text-white">
+                                        <h3 className=" text-xl text-white">
                                             Send Us a Message
                                         </h3>
                                     </div>
@@ -226,13 +226,13 @@ export default function ContactPage() {
                                             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                                 <FiCheckCircle className="w-10 h-10 text-green-600" />
                                             </div>
-                                            <h3 className="font-manrope font-semibold text-xl text-gray-900 mb-2">Message Sent!</h3>
-                                            <p className="font-instrument text-gray-600">{formStatus.message}</p>
+                                            <h3 className=" font-semibold text-xl text-gray-900 mb-2">Message Sent!</h3>
+                                            <p className=" text-gray-600">{formStatus.message}</p>
                                         </div>
                                     ) : (
                                         <form onSubmit={handleSubmit} className="space-y-5">
                                             <div>
-                                                <label className="block font-manrope text-sm font-medium text-gray-700 mb-2">
+                                                <label className="block  text-sm font-medium text-gray-700 mb-2">
                                                     Your Name *
                                                 </label>
                                                 <input
@@ -247,7 +247,7 @@ export default function ContactPage() {
                                             </div>
 
                                             <div>
-                                                <label className="block font-manrope text-sm font-medium text-gray-700 mb-2">
+                                                <label className="block  text-sm font-medium text-gray-700 mb-2">
                                                     Email Address *
                                                 </label>
                                                 <input
@@ -262,7 +262,7 @@ export default function ContactPage() {
                                             </div>
 
                                             <div>
-                                                <label className="block font-manrope text-sm font-medium text-gray-700 mb-2">
+                                                <label className="block  text-sm font-medium text-gray-700 mb-2">
                                                     Your Message *
                                                 </label>
                                                 <textarea
@@ -278,7 +278,7 @@ export default function ContactPage() {
 
                                             <button
                                                 type="submit"
-                                                className="w-full bg-gray-900 text-white py-4 rounded-full font-manrope font-medium transition-all duration-300 flex items-center justify-center gap-2 group hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/20 overflow-hidden relative"
+                                                className="w-full bg-gray-900 text-white py-4 rounded-full  font-medium transition-all duration-300 flex items-center justify-center gap-2 group hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/20 overflow-hidden relative"
                                             >
                                                 <span className="relative z-10">Send Message</span>
                                                 <FiArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -296,7 +296,7 @@ export default function ContactPage() {
 
                         <div className="lg:col-span-5">
                             <div className="bg-gray-50 rounded-2xl p-6 md:p-8 border border-gray-200 sticky top-24">
-                                <h3 className="font-marcellus text-2xl text-gray-900 mb-6">
+                                <h3 className=" text-2xl text-gray-900 mb-6">
                                     Contact Information
                                 </h3>
 
@@ -305,70 +305,70 @@ export default function ContactPage() {
                                         ref={el => cardRefs.current[0] = el}
                                         className="group bg-white p-4 rounded-xl border border-gray-200 shadow-md cursor-pointer flex items-start gap-3 hover:shadow-lg transition-all duration-300"
                                     >
-                                        <div className="w-10 h-10 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center text-gray-700 text-lg flex-shrink-0">
+                                        <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-gray-900 text-lg flex-shrink-0">
                                             <FiMail />
                                         </div>
                                         <div className="flex-1">
-                                            <h3 className="font-marcellus text-base font-semibold mb-0.5 text-gray-900">
+                                            <h3 className=" text-base font-semibold mb-0.5 text-gray-900">
                                                 Email
                                             </h3>
-                                            <p className="font-manrope text-gray-600 text-sm">team@riden.tech</p>
+                                            <p className=" text-gray-600 text-sm">team@riden.tech</p>
                                         </div>
-                                        <FiArrowRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 self-center" />
+                                        <FiArrowRight className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 self-center" />
                                     </div>
 
                                     <div
                                         ref={el => cardRefs.current[1] = el}
                                         className="group bg-white p-4 rounded-xl border border-gray-200 shadow-md cursor-pointer flex items-start gap-3 hover:shadow-lg transition-all duration-300"
                                     >
-                                        <div className="w-10 h-10 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center text-gray-700 text-lg flex-shrink-0">
+                                        <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-gray-900 text-lg flex-shrink-0">
                                             <FiPhone />
                                         </div>
                                         <div className="flex-1">
-                                            <h3 className="font-marcellus text-base font-semibold mb-0.5 text-gray-900">
+                                            <h3 className=" text-base font-semibold mb-0.5 text-gray-900">
                                                 Call
                                             </h3>
-                                            <p className="font-manrope text-gray-600 text-sm">+1 7787704050</p>
+                                            <p className=" text-gray-600 text-sm">+1 7787704050</p>
                                         </div>
-                                        <FiArrowRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 self-center" />
+                                        <FiArrowRight className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 self-center" />
                                     </div>
 
                                     <div
                                         ref={el => cardRefs.current[2] = el}
                                         className="group bg-white p-4 rounded-xl border border-gray-200 shadow-md cursor-pointer flex items-start gap-3 hover:shadow-lg transition-all duration-300"
                                     >
-                                        <div className="w-10 h-10 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center text-gray-700 text-lg flex-shrink-0">
+                                        <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-gray-900 text-lg flex-shrink-0">
                                             <FiMapPin />
                                         </div>
                                         <div className="flex-1">
-                                            <h3 className="font-marcellus text-base font-semibold mb-0.5 text-gray-900">
+                                            <h3 className=" text-base font-semibold mb-0.5 text-gray-900">
                                                 Visit
                                             </h3>
-                                            <p className="font-manrope text-gray-600 text-sm">15850 26 Ave, Surrey, BC V3Z 2N6, Canada</p>
+                                            <p className=" text-gray-600 text-sm">15850 26 Ave, Surrey, BC V3Z 2N6, Canada</p>
                                         </div>
-                                        <FiArrowRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 self-center" />
+                                        <FiArrowRight className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 self-center" />
                                     </div>
                                 </div>
 
                                 <div className="mb-8 p-4 bg-white rounded-xl border border-gray-200">
                                     <div className="flex items-center gap-3 mb-3">
                                         <FiClock className="w-5 h-5 text-gray-700" />
-                                        <h4 className="font-manrope font-semibold text-gray-900">Office Hours</h4>
+                                        <h4 className=" font-semibold text-gray-900">Office Hours</h4>
                                     </div>
                                     <div className="space-y-2 text-sm">
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Monday - Friday</span>
-                                            <span className="font-manrope text-gray-900">9:00 AM - 5:00 PM</span>
+                                            <span className=" text-gray-900">9:00 AM - 5:00 PM</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Sunday</span>
-                                            <span className="font-manrope text-gray-900">Closed</span>
+                                            <span className=" text-gray-900">Closed</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="pt-4 border-t border-gray-200">
-                                    <h4 className="font-manrope font-semibold text-gray-900 mb-4">Follow Us</h4>
+                                    <h4 className=" font-semibold text-gray-900 mb-4">Follow Us</h4>
                                     <div className="flex gap-3">
                                         {[
                                             { icon: <FiGithub className="w-5 h-5" />, href: "#", label: "GitHub" },
@@ -380,7 +380,7 @@ export default function ContactPage() {
                                                 key={index}
                                                 ref={el => socialRefs.current[index] = el}
                                                 href={social.href}
-                                                className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-700 hover:bg-gray-900 hover:text-white transition-all duration-300 hover:scale-110 border border-gray-200"
+                                                className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-700 hover:bg-accent hover:text-white transition-all duration-300 hover:scale-110 border border-gray-200"
                                                 aria-label={social.label}
                                             >
                                                 {social.icon}

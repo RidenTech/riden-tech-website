@@ -461,7 +461,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo with Marcellus font */}
           <div className="flex-shrink-0" ref={logoRef} style={{ opacity: 0 }}>
-            <Link to="/" className="font-marcellus text-2xl tracking-wide text-gray-900 flex items-center gap-1 justify-center">
+            <Link to="/" className=" text-2xl tracking-wide text-gray-900 flex items-center gap-1 justify-center">
               <img src="/fav.png" alt="Logo" className="w-10 h-10 rounded-lg" />
               <img src="/text-logo.png" alt="text-logo" className="w-full h-12" />
             </Link>
